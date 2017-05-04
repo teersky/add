@@ -1,4 +1,5 @@
 var express = require('express');
+var http = require('http');
 var router = express.Router();
 // 导入MySQL模块
 var mysql = require('mysql');
@@ -17,22 +18,13 @@ router.post('', function(req, res, next) {
 	pool.getConnection(function(err, connection) {
 		// 获取前台页面传过来的参数  
 		var param = req.body;
-		var name = param.username;
-		var psd1 = param.password1;
-		var psd2 = param.password2;
-		var job=param.work;
-		var sex=param.sex;
-		var db='';
-		if(job=="管理员"){
-			db='administator';
-		}
-		if(job=="菜农"){
-			db='peasant';
-		}
-		if(job=="收购商"){
-			db='business';
-		}
-		// 建立连接 增加一个用户信息 
+		var name = param.userName;
+		var psd1 = param.psd1;
+		var psd2 = param.psd2;
+		var job  = param.work;
+		var sex  = param.sex;
+		var city = param.address;
+		console.log(param)
 		if(name == '' || psd1 == '' || psd2 == '') {
 			var result = {
 				err: 201,
@@ -57,9 +49,10 @@ router.post('', function(req, res, next) {
 			psd1 = (require('crypto').createHash('md5').update(psd1).digest('hex'));
 			psd1 = psd1
 		}
-		console.log(db)
-		var user=[name,psd1,sex];
-		connection.query('INSERT INTO ' +db+ '(username,password,sex) VALUES(?,?,?)', user, function selectCb(err, results, fields) {
+		
+		var user=[name,psd1,sex,city];
+		
+		connection.query('INSERT INTO '+ job +'(id,username,password,sex,istitute) VALUES(0,?,?,?,?)', user, function selectCb(err, results, fields) {
 			if(err) {
 				console.log(err)
 				return false;
@@ -71,6 +64,7 @@ router.post('', function(req, res, next) {
 						psd: '注册成功'
 				}
 			res.render('regeit', result);
+			console.log("成功")
 			connection.end();
 		});
 	});

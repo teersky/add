@@ -14,7 +14,39 @@
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/regeit_js.js"></script>
 		<script src="/js/public.js"></script>
-		<script></script>
+		<script>
+			$(function(){
+				if($(".text2").val()!=$(".text3").val()){
+					$(".warn").html("两次密码不一致");
+					return false;
+				}else{
+					ck();
+				}
+				function ck(){
+					$(".submit").click(function(){
+						var address =sessionStorage.getItem('cityName');
+						var username = $(".text1").val();
+						var sex=$('input:radio:checked').val();
+						var psd1= $(".text2").val();
+						var psd2= $(".text3").val();
+						var work= $('#work option:selected').val();
+						console.log(work);
+						$.ajax({
+							url:'',
+							type:'post',
+							data:{
+								address:address,
+								userName: username,
+								sex:sex,
+								psd1:psd1,
+								psd2:psd2,
+								work:work
+							}
+						})
+					});
+				}
+			})
+		</script>
 	</head>
 	<body>
 		<header>
@@ -22,21 +54,21 @@
 			<span>注册</span>
 		</header>
 		<div class="ft">
-			<form action="regeit" name="regeit" method="post">
+		
 				<span class="inp1">
 					<span class="logo"></span>
 					<input type="text" value="请输入用户名" class="text text1" name="username"/>
 				</span>
 				<span class="inp2">
-					<input type="radio" value='man' name="sex"/>男
-					<input type="radio" value='woman' name="sex"/>女
+					<input type="radio" name="sex" value="1" checked="true" />男
+					<input type="radio" name="sex" value="0" />女
 				</span>
 				<span class="inp1">
 					<span class="logo"></span>
 					<select name="work" id="work">
-						<option value="菜农">菜&nbsp农</option>
-						<option value="收购商">收购商</option>
-						<option value="管理员">管理员</option>
+						<option value="peasant">菜&nbsp农</option>
+						<option value="business">收购商</option>
+						<option value="admininstator">管理员</option>
 					</select>
 				</span>
 				
@@ -48,8 +80,9 @@
 					<span class="logo"></span>
 					<input type="text" value="请输入密码" class="text text3" name="password2"/>
 				</span>
-				<input type="submit" value="注册" class="submit"/>
-			</form>
+				<span class="warn"></span>
+				<input type="button" value="注册" class="submit"/>
+		
 		</div>
 	</body>
 </html>

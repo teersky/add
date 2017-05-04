@@ -29,6 +29,26 @@
 				});
 			}
 			document.addEventListener('DOMContentLoaded', loaded, false);
+
+			$(function(){
+				var map = new BMap.Map("allmap");
+				var point = new BMap.Point(116.331398, 39.897445);
+				map.centerAndZoom(point, 12);
+				var cityName = '';
+
+				var myCity = new BMap.LocalCity();
+				myCity.get(myFun);				
+
+				function myFun(result) {
+					cityName = result.name;
+					map.setCenter(cityName);
+					//alert("当前定位城市:"+cityName);
+					if(cityName=='全国'){
+						cityName="兰州市";
+					}
+					sessionStorage.setItem("cityName", cityName);
+				}
+			});
 		</script>
 	</head>
 
@@ -77,43 +97,65 @@
 			};
 		</script>
 		<div class="content">
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809673822754.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">最新价格</div>
 			</a>
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809673974739.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">价格展示</div>
 			</a>
-			<a href="#" data-role="none">
+			<a  data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674157426.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">历史价格</div>
 			</a>
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674319154.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">交流平台</div>
 			</a>
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674461949.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">天气预报</div>
 			</a>
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674651404.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">个人中心</div>
 			</a>
-			<a href="#" data-role="none">
+			<a  data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674805918.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">新闻动态</div>
 			</a>
-			<a href="#" data-role="none">
+			<a data-role="none">
 				<div class="img" style="background:url(upload/img/20131005/13809674974016.png) center no-repeat; background-size:contain;"></div>
 				<div class="text">联系我们</div>
 			</a>
 		</div>
+		
 		<div class="footer">
 			<p class="footer-top">&COPY;农产品价格公示平台 </p>
 		</div>
 		<div id="allmap" style="width: 0; height:0; display: none"></div>
+		<script>
+			checkUser();
+			function checkUser(){
+				var hrefArr=['#','#','#','#','weather','#','#','#'];
+				
+				$(".content a").each(function(index){
+					$(this).click(function(){
+						alert(111);
+						var getUserName=sessionStorage.getItem('userName');
+						console.log(getUserName);
+						if(getUserName==null){
+							location.href='login';
+						}else{
+							location.href=hrefArr[index];
+						}
+					});
+				});
+				
+			}
+			
+		</script>
 	</body>
 
 </html>

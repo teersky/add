@@ -18,6 +18,7 @@ router.post('', function(req, res, next) {
 		var type =param.user;
 		var name =param.username;
 		var psd =param.password;
+		
 		// 建立连接 增加一个用户信息 
 		if(name=='' || psd==''){
 			var result={
@@ -33,7 +34,7 @@ router.post('', function(req, res, next) {
 			psd=(require('crypto').createHash('md5').update(psd).digest('hex'));
 			psd=psd
 		}
-		
+		console.log(psd)
 		connection.query('SELECT password FROM '+type+' WHERE username = ? ', [name],function selectCb(err, results, fields) {
 			if(err) {
 				
@@ -48,26 +49,25 @@ router.post('', function(req, res, next) {
 				}
 				res.render('login', result);
 				return false;
-			}else{
-				console.log(results[0].password +'---'+ psd);
-				if(results[0].password != psd){
-					var result={
-						err:201,
-						text:"",
-						title: 'tjp',
-						psd:'密码错误'
-					}
-					res.render('login', result);
-					return false;
-				}else{
-					res.render('result', results[0]);
-				}
-				
-				/*res.json({
-					code: '9902',
-					msg: 'ok'
-				});*/
 			}
+			console.log(results[0].password +'---'+ psd);
+			if(results[0].password != psd){
+				var result={
+					err:201,
+					text:"",
+					title: 'tjp',
+					psd:'密码错误'
+				}
+				res.render('login', result);
+				return false;
+			}
+			var result={
+				err:201,
+				text:"",
+				title: '登录成功',
+				text:'你已登录成功，点击'
+			}
+			res.render('result', result);
 			connection.end();
 		});
 	});

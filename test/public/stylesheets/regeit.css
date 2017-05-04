@@ -1,0 +1,105 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+.loginBG{
+	width: 100%;
+	z-index: -100;
+	position: absolute;
+	top:0;
+	left: 0;
+}
+header{
+	width: 100%;
+	height: 1.6rem;
+	background: #5D6DDE;
+}
+header a{
+	color:#fff;
+	line-height: 1.6rem;
+	font-size:0.6rem;
+	text-decoration: none;
+}
+header span{
+	font-size: 1.2rem;
+	color:#fff;
+	position: relative;
+	left:50%;
+	margin-left: -60px;;
+}
+
+.ft{
+	width: 100%;
+	background: #f1f1f1;
+	padding: 0.26rem 0;
+}
+.ft>span{
+	position: relative;
+	margin: 0.26rem 0;
+	background: #fff;
+}
+.inp1{
+	width: 100%;
+	height: 1.7rem;
+	display: block;
+	position: relative;
+	margin: 0.5rem 0;
+}
+
+.logo{
+	width: 0.9rem;
+	height: 0.96rem;
+	background: url(../images/user.png) no-repeat;
+	background-size: cover;
+	display: inline-block;
+	margin-top:0.4rem;
+	margin-left:0.1rem;
+}
+.text{
+	height: 1.6rem;
+	width:-moz-calc(100% - 1.8rem);
+	width:-webkit-calc(100% -1.8rem);
+	width: calc(100% - 1.8rem);
+	font-size: 0.6rem;
+	color:#dddddd;
+	margin-left: 0.05rem;
+	position: absolute;
+	top:0.025rem;
+	right:0px;
+	border: 0px;
+}
+.inp2{
+	width: 100%;
+	height:1.8rem;
+	display: block;
+	margin: 0.5rem 0;
+	display: flex;
+}
+.inp2 input{
+	margin: 0.6rem 3rem;
+}
+#work{
+	height: 1.6rem;
+	width:-moz-calc(100% - 1.8rem);
+	width:-webkit-calc(100% -1.8rem);
+	width: calc(100% - 1.8rem);
+	font-size: 0.6rem;
+	color:#333;
+	margin-left: 0.05rem;
+	position: absolute;
+	top:0.025rem;
+	right:0px;
+	border: 0px;
+}
+.submit{
+	width: 80%;
+	height: 2.4rem;
+	background: #00B7FF;
+	color:#fff;
+	font-size: 1rem;
+	text-align: center;
+	line-height: 1.2rem;
+	margin: 0 auto;
+	display: block;
+	margin-top: 0.8rem;
+}

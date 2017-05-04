@@ -1,0 +1,219 @@
+html,
+body {
+  font-family: "Microsoft YaHei";
+  background: #e7e7e7;
+  margin: 0;
+  padding: 0;
+}
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  font-family: "Microsoft YaHei";
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+body {
+  font-size: 12px;
+  line-height: 1;
+  background: #f5f5f5;
+}
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+blockquote,
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  text-decoration: none;
+}
+input,
+select {
+  vertical-align: middle;
+}
+.clear{
+  clear:both;
+}
+
+
+
+footer{
+	width: 100%;
+	height: 2.83379rem;
+	background: #4C5A9E;
+	position: fixed;
+	left:0;
+	bottom:0;
+}
+.ft_box{
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+.ft_box li{
+	flex:1;
+	position: relative;
+}
+
+.ft_img{
+	width: 1.2643rem;
+	height: 1.2643rem;
+	border: 0.05rem solid #F3F4F8;
+	border-radius: 50%;
+	margin-top: 0.2rem;
+	display: block;
+	position: relative;
+	left:50%;
+	margin-left: -0.63215rem;
+}
+.ft_txt{
+	display: block;
+	text-align: center;
+	font-size: 0.554666666667rem;
+	margin-top: 0.3rem;
+	color: #fff;
+}
+.ft_img img{
+	display: block;
+	width: 0.75rem;
+	margin-top: 0.3rem;
+	position: relative;
+	left:50%;
+	margin-left: -0.375rem;
+}
+.ft_img .yjDress{
+	display: block;
+	width: 0.75rem;
+	height: 0.75rem;
+	margin-top: 0.3rem;
+	margin-left: 0.29rem;
+	background: url(../img/index/foot_yjDress@1x.png) no-repeat;
+	background-size: 0.7rem;
+	position: relative;
+}
+
+.zhizheng{
+	width: 0.2rem;
+	height: 0.545rem;
+	display: block;
+	position: absolute;
+	left:50%;
+	bottom:0;
+	margin-left: -0.09rem;	
+}
+.zhizheng .b1{
+	width: 0.0436rem;
+	height: 0.45rem;
+	margin-left: 0.05rem;
+	background: url(../img/index/foot_yjLine@1x.png) no-repeat;
+	background-size: cover;
+	display: block;
+}
+.zhizheng .b2{
+	width: 0.16rem;
+	height: 0.16rem;
+	position: relative;
+	left:50%;
+	margin-left: -0.08rem;
+	background: url(../img/index/foot_yjCricle@1x.png) no-repeat;
+	background-size: 0.14rem;
+	display: block;
+}
+.redPoint{
+	width: 0.3413333rem;
+	height: 0.34133333rem;
+	display: block;
+	position: absolute;
+	left:6.8rem;
+	top:0.2rem;
+	background: url(../img/index/redPoint@1x.png) no-repeat;
+	background-size: cover;
+}

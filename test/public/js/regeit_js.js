@@ -1,0 +1,27 @@
+$(function(){
+	
+	$(".text1").focus(function(){
+		$(".text1").val("");
+	});
+	$(".text1").blur(function(){
+		if($(".text1").val()==''){
+			$(".text1").val("请输入用户名");
+		}
+	});
+	$(".text2").focus(function(){
+		$(".text2").val("");
+	});
+	$(".text2").blur(function(){
+		if($(".text2").val()==''){
+			$(".text2").val("请输入密码");
+		}
+	});
+	$(".text3").focus(function(){
+		$(".text3").val("");
+	});
+	$(".text3").blur(function(){
+		if($(".text3").val()==''){
+			$(".text3").val("请输入密码");
+		}
+	})
+})

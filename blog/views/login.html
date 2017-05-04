@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>
+			<%= title %>
+		</title>
+		<meta name="screen-orientation" content="portrait">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="x5-page-mode" content="app">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel='stylesheet' href='/stylesheets/login.css' />
+		<script srx=/js/login.js></script>
+	</head>
+
+	<body>
+		<img src="/images/loginBG.jpg" alt="" class="loginBG" />
+		<!--<form action="users/getUserById"name="login" method="get">		`-->
+		<header>
+			<a href="/"><返回</a>
+			<span>登录</span>
+		</header>
+		<div class="logo"></div>
+		<form action="login" name="login" method="post">
+			<!-- <div>
+				<span class="user_psd">用户</span>
+				<select name="user"class="username">
+					<option value="admininstator">管理员</option>
+					<option value="business">收购商</option>
+					<option value="peasant">菜农</option>
+				</select>
+			</div> -->
+			<div>
+				<span class="user_psd">类型</span>
+				<select name="user" class="username" id="user">
+					<option value="admininstator">管理员</option>
+					<option value="business">收购商</option>
+					<option value="peasant">菜农</option>
+				</select>
+			</div>
+			<div>
+				<span class="user_psd">用户</span>
+				<input type="text" name="username" class="username" />
+				<span class='warn'><%= text %></span>
+			</div>
+			<div>
+				<span class="user_psd">密码</span>
+				<input type="password" name="password" class="password" />
+				<span class='warn'><%= psd %></span>
+			</div>
+			<div>
+				<a href="" class="forget">忘记密码？</a>	
+			</div>
+			<input type="submit" value="登录" class="submit" />
+			<div class="zc">还没有账号，点击
+				<a href="regeit">注册</a>
+			</div>
+		</form>
+
+	</body>
+
+</html>

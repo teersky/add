@@ -1,0 +1,135 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+.loginBG{
+	width: 100%;
+	z-index: -100;
+	position: absolute;
+	top:0;
+	left: 0;
+}
+header{
+	width: 100%;
+	height: 40px;
+	background: #5D6DDE;
+	position: absolute;
+	left:0;
+	top:0;
+	
+}
+header a{
+	color:#fff;
+	line-height: 40px;
+	font-size:12px;
+	text-decoration: none;
+}
+header span{
+	font-size: 20px;
+	color:#fff;
+	position: relative;
+	left:50%;
+	margin-left: -60px;;
+}
+form{
+	margin-top: 250px;
+	display: block;
+	position: relative;
+}
+
+form div{
+	height: 40px;
+	margin: 20px 30px;
+	display: block;
+	float:left;
+	position: relative;
+}
+
+form div span{
+	font-size: 14px;
+	display: block;
+	float:left;
+}
+form div input{
+	display: block;
+}
+
+.user_psd{
+	position: absolute;
+	top:15px;
+}
+.warn{
+	position: absolute;
+	left:60px;
+	bottom:-30px;
+	color:#f30;
+}
+.logo{
+	width: 100px;
+	height: 100px;
+	border: 2px solid #fff;
+	margin-top: 40px;
+	border-radius: 50px;
+	position: absolute;
+	left:50%;
+	margin-left: -50px;
+	top:100px;
+	background: url(../images/logo.png) no-repeat;
+	background-size: 80px;
+	background-position: 10px 10px;
+}
+
+.username{
+	width: 240px;
+	height: 40px;
+	margin-left: 50px;
+	border-radius: 50px;
+	font-size: 15px;
+	text-indent: 12px;
+	outline: none;
+}
+
+.password{
+	width: 240px;
+	height: 40px;
+	margin-left: 50px;
+	border-radius: 50px;
+	font-size: 15px;
+	text-indent: 12px;
+	outline: none;
+}
+.submit{
+	width: 200px;
+	height: 40px;
+	font-size: 20px;
+	position: relative;
+	left:50%;
+	top:0;
+	margin-left: -100px;
+	border-radius:20px;
+	background: #00B7FF;
+	color: #fff;
+	box-shadow: 5px 5px 20px #3150a7;
+	display: block;
+}
+
+.zc{
+	font-size: 14px;
+	width: 200px;
+	position: relative;
+	left:50%;
+	margin-left: -70px;
+}
+.forget{
+	font-size: 12px;
+	width: 100px;
+	height: 15px;
+	color: #5d6dde;
+	display: block;
+	margin-left: 200px;
+}
+#user option{
+	display: block;
+	width: 200px;
+	height: 40px;
+}

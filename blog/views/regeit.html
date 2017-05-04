@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="screen-orientation" content="portrait">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="x5-page-mode" content="app">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel='stylesheet' href='/stylesheets/regeit.css' />
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/regeit_js.js"></script>
+		<script src="/js/public.js"></script>
+		<script></script>
+	</head>
+	<body>
+		<header>
+			<a href="/"><返回</a>
+			<span>注册</span>
+		</header>
+		<div class="ft">
+			<form action="regeit" name="regeit" method="post">
+				<span class="inp1">
+					<span class="logo"></span>
+					<input type="text" value="请输入用户名" class="text text1" name="username"/>
+				</span>
+				<span class="inp2">
+					<input type="radio" value='man' name="sex"/>男
+					<input type="radio" value='woman' name="sex"/>女
+				</span>
+				<span class="inp1">
+					<span class="logo"></span>
+					<select name="work" id="work">
+						<option value="菜农">菜&nbsp农</option>
+						<option value="收购商">收购商</option>
+						<option value="管理员">管理员</option>
+					</select>
+				</span>
+				
+				<span class="inp1">
+					<span class="logo"></span>
+					<input type="text" value="请输入密码" class="text text2" name="password1"/>
+				</span>
+				<span class="inp1">
+					<span class="logo"></span>
+					<input type="text" value="请输入密码" class="text text3" name="password2"/>
+				</span>
+				<input type="submit" value="注册" class="submit"/>
+			</form>
+		</div>
+	</body>
+</html>

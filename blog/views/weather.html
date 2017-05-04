@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="/stylesheets/public.css" />
+		<link rel="stylesheet" href="/stylesheets/weather.css" />
+		<style>
+
+		</style>
+		
+		<script src="/js/public.js"></script>
+		<script src="/js/highCharts/jquery.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=hKVAUB5UkC7wOnkfeinSuIAoX2xt6aBQ"></script>
+		<script src="/js/weather_1.js"></script>
+		<script src="/js/vue.min.js"></script>
+		<script src="/js/highCharts/highCharts.min.js"></script>
+		<script src="/js/highCharts/exporting.min.js"></script>
+		<script src="/js/highCharts/highcharts-zh_CN.js"></script>
+
+	</head>
+
+	<body>
+		<header>
+			<img src="/images/weather/per.png" alt="" class="pre" />
+			<span class="title">农产品价格公示平台</span>
+			<span class="location">
+				<img src="/images/weather/dw_Z.png" alt="" />
+			</span>
+		</header>
+		<div class="father">
+			<img src="/images/weather/indexBg.png" />
+			<div class="address">
+				<div class="add_1">
+					<a href="javascript:;"><b></b></a>
+					<span>{{address}}</span>
+				</div>
+				<!--<div class="warn_add">
+					<div class="add_2">
+						<span class="warn_img"><img src="/images/weather/rain@1x.png" alt="" /></span>
+						<span class="warn_txt">暴雨</span>
+					</div>
+					<div class="add_2">
+						<span class="warn_img"><img src="/images/weather/hot@1x.png" alt="" /></span>
+						<span class="warn_txt">高温</span>
+					</div>
+				</div>-->
+
+			</div>
+			<div class="ftBox">
+				<!--<img src="/images/weather/jbBg.png" alt="" class="bjImg1" />-->
+				<div class="weatherDeatils">
+					<div class="detailsLeft">
+
+					</div>
+					<div class="detailsRight">
+				
+						<span class="dtR_1">{{ Dt }}</span>
+						<span class="dtR_2">星期一</span>
+						<span class="dtR_3">{{ msg.data.wendu }}°C</span>
+						<ul class="dtR_4">
+							<li class="dtR_4_1">
+								<span class="dtR_4_top">风力</span>
+								<span class="dtR_4_btm">{{ msg.data.forecast[0].fengli }}</span>
+							</li>
+							<li class="dtR_4_2">
+								<span class="dtR_4_top">风向</span>
+								<span class="dtR_4_btm">{{ msg.data.forecast[0].fengxiang }}</span>
+							</li>
+							<li class="dtR_4_3">
+								<span class="dtR_4_top">低温</span>
+								<span class="dtR_4_btm">{{ low[0] }}</span>
+							</li>
+							<li class="dtR_4_4">
+								<span class="dtR_4_top">高温</span>
+								<span class="dtR_4_btm">{{ high[0] }}</span>
+							</li>
+						</ul>
+					</div>
+				
+					<div class="clear"></div>
+
+					<!--<div class="detailsBottom">
+						<span class="detailsBottom_tit">未来24小时预报</span>
+						<div class="chart_24h" id="chart_24h"></div>
+					</div>-->
+					<div class="detailsBottom">
+						<span class="detailsBottom_tit">未来7天预报</span>
+						<div class="chart_24h" id="chart_7d"></div>
+					</div>
+					<!--<div class="dB2">
+						<span class="detailsBottom_tit">生活指数</span>
+						<ul class="dB2_list">
+							<li>
+								<div>
+									<span class="clotherImg Img"></span>
+									<span class="txt">穿衣指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="carImg Img"></span>
+									<span class="txt">洗车指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="sunshineImg Img"></span>
+									<span class="txt">晾晒指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="monExercisImg Img"></span>
+									<span class="txt">晨练指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="sportsImg Img"></span>
+									<span class="txt">户外运动指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="fireImg Img"></span>
+									<span class="txt">火险指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="ultravioletImg Img"></span>
+									<span class="txt">紫外线指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="contaminatedImg Img"></span>
+									<span class="txt">污染指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+								<div>
+									<span class="coldImg Img"></span>
+									<span class="txt">感冒指数</span>
+									<span class="star">
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+										<b></b>
+									</span>
+								</div>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+					-->
+				</div>
+				<!--<img src="/images/weather/ftBoxBg.png" alt="" class="bjImg2" />-->
+			</div>
+		</div>
+		
+		<div id="allmap" style="display: none;"></div>
+		<script type="text/javascript">
+		</script>
+	</body>
+
+</html>

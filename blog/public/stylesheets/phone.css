@@ -1,0 +1,364 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+ul,
+li,
+ol {
+	list-style: none
+}
+
+.clear {
+	clear: both
+}
+
+a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+body {
+	background: #f3f5f7;
+	width: 100%;
+}
+
+.ceshi {
+	width: 100%;
+	margin-top: .5rem;
+	position: relative
+}
+
+.ceshi_1 {
+	height: 1.5rem;
+	width: 95%;
+	margin: 0 auto;
+	overflow: hidden
+}
+
+.ceshi_2 {
+	width: 97%;
+	height: .3rem;
+	background: #d1d1d1;
+	position: absolute;
+	top: .6rem;
+	border-radius: .4rem;
+}
+
+.ceshi_3 {
+	width: 33%;
+	height: .3rem;
+	background: #2b93f6;
+	position: absolute;
+	top: .6rem;
+	border-radius: .4rem;
+}
+
+.ceshi_4 {
+	width: 100%;
+	position: absolute;
+}
+
+.ceshi_4 p {
+	width: 31%;
+	float: left;
+	text-align: center;
+	line-height: 1.5rem;
+}
+
+.ceshi_4 p:nth-child(2) {
+	width: 33%
+}
+
+.ceshi_4 p:nth-child(3) {
+	width: 33%
+}
+
+.active {
+	display: block;
+	width: 1.1rem;
+	height: 1.1rem;
+	background: #2b93f6;
+	margin: 0 auto;
+	border-radius: 50%;
+	font-size: .7rem;
+	color: #FFF;
+	line-height: 1.1rem;
+	top: .2rem;
+	position: relative
+}
+
+.no_active {
+	display: block;
+	width: 1.1rem;
+	height: 1.1rem;
+	background: #d1d1d1;
+	margin: 0 auto;
+	border-radius: 50%;
+	font-size: .7rem;
+	color: #FFF;
+	line-height: 1.1rem;
+	top: .2rem;
+	position: relative
+}
+
+.ceshi_5 {
+	width: 100%;
+	color: #
+}
+
+.ceshi_5 p {
+	width: 33%;
+	float: left;
+	text-align: center;
+	line-height: 1rem;
+	font-size: .7rem;
+}
+
+.active_1 {
+	color: #2b93f6
+}
+
+.ceshi_6_1 {
+	position: relative;
+}
+
+.ceshi_6_shuru {
+	position: relative;
+	width: 90%;
+	margin: 0 auto;
+	font-size: .7rem;
+	margin-top: 1rem;
+}
+
+.ceshi_6_f_1 {
+	position: absolute;
+	line-height: 2.8;
+	left: .5rem;
+}
+
+.ceshi_6_f_2 {
+	position: absolute;
+	line-height: 2.8;
+	left: 3rem;
+	color: #d7d7d7;
+}
+
+.ceshi_6_shuru input {
+	line-height: 2rem;
+	font-size: .7rem;
+	text-indent: 3rem;
+	width: 100%;
+}
+
+.ceshi_7_1 {
+	height: .7rem;
+	width: .7rem;
+	background: #d1d1d1;
+	float: left;
+	margin-top: .1rem;
+	margin-right: .3rem;
+}
+
+.ceshi_7_1_b {
+	height: .7rem;
+	width: .7rem;
+	background: url(/img/duigou.png) no-repeat center;
+	float: left;
+	margin-top: .1rem;
+	margin-right: .3rem;
+	background-size: 100% 100%;
+}
+
+.ceshi_7 {
+	width: 90%;
+	margin: 0 auto;
+	margin-top: .5rem;
+	font-size: .75rem;
+	margin-top: .5rem;
+	margin-bottom: 1rem;
+}
+
+.ceshi_7 a {
+	color: #2b93f6
+}
+
+.ceshi_8_no_a {
+	background: url(/img/bottom_5.png) center no-repeat;
+	width: 90%;
+	line-height: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	background-size: 100%;
+	color: #FFF;
+	font-size: .8rem;
+}
+
+.ceshi_8_a {
+	background: url(/img/bottom_6.png) center no-repeat;
+	width: 90%;
+	line-height: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	background-size: 100%;
+	color: #FFF;
+	font-size: .8rem;
+}
+
+.ceshi_9_a {
+	background: url(/img/bottom_6.png) center no-repeat;
+	width: 90%;
+	line-height: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	background-size: 100%;
+	color: #FFF;
+	font-size: .8rem;
+}
+
+.ceshi_10_a {
+	background: url(/img/bottom_6.png) center no-repeat;
+	width: 90%;
+	line-height: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	background-size: 100%;
+	color: #FFF;
+	font-size: .8rem;
+}
+
+.shouji {
+	position: relative;
+	width: 90%;
+	margin: 0 auto;
+	margin-top: .5rem;
+}
+
+.shouji_1 {
+	position: relative;
+	width: 100%;
+	font-size: .7rem;
+	line-height: 2rem;
+}
+
+.shouji_1_1 {
+	position: absolute;
+	left: .5rem;
+}
+
+.shouji_1_2 {
+	position: absolute;
+	left: 3rem;
+	color: #cccbcb
+}
+
+.shouji_1_4 {
+	position: absolute;
+	left: 8rem;
+	color: #cccbcb;
+}
+
+.shouji_1_4 img {
+	position: relative;
+	top: .75rem;
+	height: .5rem;
+}
+
+.shouji_1_3_b {
+	position: absolute;
+	right: .5rem;
+	background: #cccbcb;
+	text-align: center;
+	padding: 0 .5rem;
+	line-height: 1.2rem;
+	margin-top: .4rem;
+	color: #FFF;
+	border-radius: .2rem
+}
+
+.shouji input {
+	line-height: 2rem;
+	width: 100%;
+	border-radius: .2rem;
+	text-indent: 3rem;
+	font-size: .7rem;
+}
+
+.suijima {
+	display: none
+}
+
+.shouji_5 {
+	width: 90%;
+	margin: 0 auto;
+	line-height: 2rem;
+	font-size: .7rem;
+}
+
+.shouji_5 span {
+	color: #2b93f6;
+	padding-left: .5rem;
+}
+
+.zhuce {
+	width: 90%;
+	height: 4rem;
+	margin: 0 auto;
+	background: #FFF;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+	border-radius: .3rem;
+}
+
+.dianhua {
+	line-height: 2rem;
+	width: 90%;
+	border-bottom: 1px solid #666;
+	margin: 0 auto;
+	font-size: .8rem;
+	color: #8c8c8c
+}
+
+.dianhua span {
+	padding-left: .5rem;
+}
+
+.pass {
+	line-height: 2rem;
+	width: 90%;
+	margin: 0 auto;
+	font-size: .8rem;
+}
+
+.mima {
+	float: left;
+}
+
+.mima_1 {
+	line-height: 2rem;
+	width: 7rem;
+	margin-left: .5rem;
+	font-size: .8rem;
+	float: left;
+	font-weight: 400
+}
+
+.yanjing {
+	float: right;
+	height: .8rem;
+	margin-top: .6rem;
+}
+
+.yanjing img {
+	height: .7rem;
+	float: left;
+}
+
+.yanjing img:nth-child(1) {
+	margin-right: .5rem;
+}

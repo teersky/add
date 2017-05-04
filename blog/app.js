@@ -4,22 +4,25 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
 
-var mongoose=require('mongoose');
-var session=require("express-session");
-var MongoStore=require("connect-mongo")(session);
-
-
-var routes= require("./config/routes");
-var config=require("./config/config")
-
+var index = require('./routes/index');
+var users = require('./routes/users');
+var connDB = require('./config/connDB');
+var result = require('./routes/result');
+var login = require('./routes/login');
+var regeit = require('./routes/regeit');
+var phone = require('./routes/phone');
+var weather = require('./routes/weather');
+var add_shu = require('./routes/add_shu');
 
 var app = express();
-//mongoose.connect('mongodb://localhost/blog');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'htm');
-app.engine('.htm', require('ejs').__express);
+app.engine('html',ejs.__express);
+app.set('view engine', 'html');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -28,20 +31,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-routes(app);
-
-app.use(session({
-	  secret: 45454,
-	  key: 'blog',
-	  store: new MongoStore({
-	  /*	cookieSession:"teersky";
-	    	db: 'blog',
-	    	host: 'localhost'*/
-	    url: 'mongodb://localhost/blog'
-		})
-}));
 
 
+app.use('/', index);
+app.use('/users', users);
+app.use('/result', result);
+app.use('/login',login);
+app.use('/regeit',regeit);
+app.use('/phone',phone);
+app.use('/weather',weather);
+app.use('/add_shu',add_shu);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

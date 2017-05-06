@@ -13,7 +13,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<link rel='stylesheet' href='/stylesheets/login.css' />
-		<script srx=/js/login.js></script>
+		<script src="/js/jquery.min.js">	</script>
+		<script src=/js/login.js></script>
 	</head>
 
 	<body>
@@ -35,7 +36,7 @@
 			</div> -->
 			<div>
 				<span class="user_psd">类型</span>
-				<select name="user" class="username" id="user">
+				<select name="user" class="username type" id="user">
 					<option value="admininstator">管理员</option>
 					<option value="business">收购商</option>
 					<option value="peasant">菜农</option>
@@ -43,7 +44,7 @@
 			</div>
 			<div>
 				<span class="user_psd">用户</span>
-				<input type="text" name="username" class="username" />
+				<input type="text" name="username" class="username user" />
 				<span class='warn'><%= text %></span>
 			</div>
 			<div>

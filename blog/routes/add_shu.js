@@ -56,7 +56,7 @@ router.get('', function(req, res, next) {
 			res.render('add_shu', result);
 			return false;
 		}
-		var msg=[name,price,dat,sender,address,beizhu,phone];
+		var msg=[name,price,dat, sender,address,beizhu,phone];
 		// 建立连接 增加一个信息 
 		connection.query('INSERT INTO '+ type +'(id,name,price,time,sender,address,beizhu,phone) VALUES(0,?,?,?,?,?,?,?)', msg, function selectCb(err, results, fields) {
 			 if(err){
@@ -68,7 +68,7 @@ router.get('', function(req, res, next) {
 						title: '农产品价格公示平台',
 						psd: ''
 				}
-			res.send('result', result);
+			res.render('result', result);
 			connection.end();
 		});
 	});

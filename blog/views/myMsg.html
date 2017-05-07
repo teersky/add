@@ -5,8 +5,31 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="/stylesheets/public.css" />
 	<link rel="stylesheet" href="/stylesheets/myMsg.css" />
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/vue.min.js"></script>
 	<script src="/js/public.js"></script>
-	<script src="js/public.js"></script>
+	<script>
+		$(function(){
+			var username=sessionStorage.getItem('username');
+			var type=sessionStorage.getItem('type');
+			console.log(username+"+"+type)
+			$.ajax({
+				url:"myMsg2",
+				data:{
+					username:username,
+					type:type
+				},
+				success:function(data){
+					console.log(data)
+				}
+			});
+			new  Vue({
+				el:".oul",
+				data:''
+			});
+
+		});
+	</script>
 </head>
 <body>
 	<ul class='oul'>

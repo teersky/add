@@ -14,6 +14,7 @@ window.onload=function(){
     var oPageBox=document.getElementById('page_box');
   //  var URL='/php/weibo.php';
     var URL='weibo1'
+    var index=0;
     oBtn.onclick=dianji;
 
     function dianji(){
@@ -33,30 +34,26 @@ window.onload=function(){
                   //  console.log(data);
                     var json=data; 
                     console.log(json);
-                    if(json.error){
-                        alert('发表失败！');
-                        return;
-                    }  else{
-                        var oDiv=createMsg(oTxt.value,json.time,0,0,json.ID);
-                        if(oBox.children){
-                            console.log(oBox.childNodes[0]);
-                            oBox.insertBefore(oDiv,oBox.childNodes[0]);
-                        }else{
-                            oBox.appendChild(oDiv);   
-                        }
-                        getPageDate();
-                        oTxt.value=''; 
+                    var oDiv=createMsg(oTxt.value,json.time,0,0,json.ID);
+                    if(oBox.children){
+                        console.log(oBox.childNodes[0]);
+                        oBox.insertBefore(oDiv,oBox.childNodes[0]);
+                    }else{
+                        oBox.appendChild(oDiv);   
                     }
+                    getPageDate();
+                    oTxt.value=''; 
+                    
                 }
                
             }); 
         }
     }
-    getPageDate(1); 
+    getPageDate(); 
 
     
 
-    function getPageDate(n){
+    function getPageDate(){
 
         oBox.innerHTML='';
         $.ajax({
@@ -66,7 +63,6 @@ window.onload=function(){
             },
             success:function(data){
                 var arr=data;
-                var index=i;
                 for(var i=0;i<arr.length;i++){
                      var oDiv=createMsg(arr[i].content,arr[i].name,arr[i].time,arr[i].acc,arr[i].ref,arr[i].ID);
                      oBox.appendChild(oDiv);
@@ -116,71 +112,108 @@ window.onload=function(){
                 });    
             };
         };
-       var top=oDiv.getElementsByTagName('a')[0];
-       top.onclick=function(){
-            console.log(id);
-            $.ajax({
-                url:URL,
-                data:{
-                    act:'acc',
-                    id:id
-                },
-                success:function(data){
-                    var json=data;
-                    var num=(json[0].acc-1+2);
-                    $.ajax({
-                        url:URL,
-                        data:{
-                            act:"acc_update",
-                            id:id,
-                            acc_num:num,
-                            old_num:json[0].acc-1+1
-                        },
-                        success:function(data){
-                            console.log(data)
-                            getPageDate(1);
-                        }
-                    })
-                    /*oBox.removeChild(oDiv);
-                    getPageDate(1);*/
-                     //   getPageCount();
-                    
-                }
-            }); 
-           
-        }; 
+        var top_bReady=true; 
+        var top=oDiv.getElementsByTagName('a')[0];
+        var low_bReady=true; 
+        var bReady=true;
         var low=oDiv.getElementsByTagName('a')[1];
+       top.onclick=function(){
+        console.log(top_bReady+ "===" +bReady)
+            if(top_bReady && bReady){
+                top.style.color='#09F';
+                $.ajax({
+                    url:URL,
+                    data:{
+                        act:'acc',
+                        id:id
+                    },
+                    success:function(data){
+                        var json=data;
+                        var num=(json[0].acc-1+2);
+                        $.ajax({
+                            url:URL,
+                            data:{
+                                act:"acc_update",
+                                id:id,
+                                acc_num:num,
+                                old_num:json[0].acc-1+1
+                            },
+                            success:function(data){
+                               $.ajax({
+                                    url:URL,
+                                    data:{
+                                        act:'acc',
+                                        id:id
+                                    },
+                                    success:function(data){
+                                       top.innerHTML=data[0].acc;
+                                    },
+                                    err:function(e){
+                                        console.log(e)
+                                    }
+                                });
+                            },
+                            err:function(e){
+                                console.log(e)
+                            }
+                        })
+                    },
+                    err:function(e){
+                    console.log(e)
+                    }
+                }); 
+                top_bReady=false;
+                bReady=false;
+            }else{
+                return false;
+            }
+            top_bReady=false;
+            bReady=false;
+        }; 
+        
         low.onclick=function(){
-            
-            $.ajax({
-                url:URL,
-                data:{
-                    act:'ref',
-                    id:id
-                },
-                success:function(data){
-                    var json=data;
-                    var num=(json[0].ref-1+2);
-                    $.ajax({
-                        url:URL,
-                        data:{
-                            act:"ref_update",
-                            id:id,
-                            acc_num:num,
-                            old_num:json[0].ref-1+1
-                        },
-                        success:function(data){
-                            console.log(data)
-                            getPageDate(1);
-                        }
-                    })
-                    /*oBox.removeChild(oDiv);
-                    getPageDate(1);*/
-                     //   getPageCount();
-                    
-                }
-            }); 
-           
+            console.log(low_bReady +'==='+ bReady)
+            if(low_bReady && bReady){
+                low.style.color='#09F';
+                $.ajax({
+                    url:URL,
+                    data:{
+                        act:'ref',
+                        id:id
+                    },
+                    success:function(data){
+                        var json=data;
+                        var num=(json[0].ref-1+2);
+                        $.ajax({
+                            url:URL,
+                            data:{
+                                act:"ref_update",
+                                id:id,
+                                acc_num:num,
+                                old_num:json[0].ref-1+1
+                            },
+                            success:function(data){
+                                $.ajax({
+                                    url:URL,
+                                    data:{
+                                        act:'ref',
+                                        id:id
+                                    },
+                                    success:function(data){
+                                        low.innerHTML=data[0].ref;
+                                    }
+                                });
+                            }
+                        })
+                    }
+                });
+                low_bReady=false;
+                bReady =false; 
+            }else{
+                return false;
+            }
+            low_bReady=false;
+            bReady =false; 
         }; 
       
          return oDiv;

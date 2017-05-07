@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="/stylesheets/public.css" />
+	<link rel="stylesheet" href="/stylesheets/shu_list.css" />
+	<script src="/js/public.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+	<script>
+		$(function(){
+			$.ajax({
+				url:"shu_list1",
+				success:function(data1){
+					console.log(data1);
+					new Vue({
+						el:".oUl",
+						data:{
+							msg:data1
+						}
+					});
+				}
+			});
+		})
+	</script>
+</head>
+<body>
+	<header>
+		<img src="/images/weather/per.png" alt="" class="pre" />
+		<span class="title">价格展示</span>
+	</header>
+	<div class="father">
+		<ul class="oUl">
+			<li v-for='m in msg'>
+				<span class="ali_1"> {{ m.name }} </span>
+				<span class="ali_2"><span>价格：</span><span>{{ m.price }}</span><span>元</span></span>
+				<span class="ali_3"><span>发布人：</span><span>{{ m.sender }}</span></span>
+				<span class="ali_4"><span>类型：</span><span>{{ m.type }}</span></span>
+				<div class="clear"></div>
+			</li>
+	<!-- 		<li>
+		<span class="ali_1">苹果</span>
+		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
+		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
+		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
+		<div class="clear"></div>
+	</li>
+	<li>
+		<span class="ali_1">苹果</span>
+		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
+		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
+		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
+		<div class="clear"></div>
+	</li>
+	<li>
+		<span class="ali_1">苹果</span>
+		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
+		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
+		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
+		<div class="clear"></div>
+	</li> -->
+		</ul>
+	</div>
+</body>
+</html>

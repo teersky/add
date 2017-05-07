@@ -1,0 +1,110 @@
+header{
+	width: 16rem;
+	height: 1.92rem;
+	background: rgba(87,106,185,0.6);
+	position: absolute;
+	left:0;
+	top:0;
+	z-index: 10;
+}
+.title{
+	font-family:'PingFangSC-Regular';
+	font-size:0.768rem;
+	color:#ffffff;
+	letter-spacing:0;
+	text-align:left;
+	display: block;
+	position: absolute;
+	bottom:0.810667rem;
+	left:50%;
+	margin-left: -1.4rem;
+}
+.location{
+	width: 1.276rem;
+	height: 1.276rem;
+	position: absolute;
+	left: 14.336rem;
+	bottom: 0.254rem;
+	background: url(/images/weather/dw_F.png) no-repeat;
+	background-size: 0.676rem;
+	border-radius: 50%;
+	background-position: 0.3rem;
+	border:0.05rem solid #fff;
+}
+.location img{
+	width: 0.27733rem;
+	position: absolute;
+	left:0.5rem;
+	top:0.4rem;
+}
+.pre{
+	width: 1.3867rem;
+	margin-left: 0.4267rem;
+	margin-top: 0.25rem;
+}
+.father{
+	width: 100%;
+	position: absolute;
+	left:0;
+	top:2rem;
+	
+}
+
+.father ul{
+	width: 100%;
+}
+.father ul li{
+	width: 100%;
+	padding :0.4rem 0.4rem;
+	background:#f6f6f6;
+	margin: 0.4rem 0;
+}
+.ali_1{
+	display: block;
+	font-size: 1rem;
+	color:#333;
+}
+.ali_2{
+	display: block;
+	float:left;
+	width:4.5rem;
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem;
+}
+
+.ali_2 span{
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem
+}
+.ali_3{
+	display: block;
+	float:left;
+	width:4.5rem
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem;
+}
+
+
+.ali_3 span{
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem
+}
+.ali_4{
+	display: block;
+	float:left;
+	width:4.5rem；
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem;
+	margin-left: 0.6rem
+}
+
+.ali_4 span{
+	font-size:0.6rem;
+	color:#555;
+	line-height: 1.2rem
+}

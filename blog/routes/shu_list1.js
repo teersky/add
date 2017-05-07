@@ -11,8 +11,13 @@ var json={};
 var rr=[];
 
 router.get('', function(req, res) {
-
-	res.render("weibo",json);
+	pool.getConnection(function(err, connection){
+		var sql= "SELECT * from vegetable ";	
+		connection.query(sql, function(err, result){
+			json= result;
+			console.log(result);
+			res.send(result);
+		});
+	});
 });
-
 module.exports = router;

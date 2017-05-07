@@ -1,0 +1,25 @@
+.oul{
+	width: 100%;
+}
+.oul li{
+	width: 90%;
+	padding: 0.4rem ;
+	display: block;
+	margin: 0.4rem;
+
+  background:#f8f8f8;
+
+}
+.oul >li span{
+	font-size: 0.6rem;
+	display: block;
+	float:left;
+	margin-right: 0.4rem
+  margin-left: 0.4rem
+
+}
+
+.oul >li span:first-child{
+	width: 3rem;
+
+}

@@ -30,8 +30,9 @@ router.get('', function(req, res) {
 		});
 	}
 	if(msg=="get"){
-		console.log("获取数据");
+		console.log("获取");
 		pool.getConnection(function(err, connection){
+			console.log(111)
 			var sql= "SELECT *from info ORDER BY time desc"
 			connection.query(sql, function(err, result){
 				if(err){
@@ -42,21 +43,65 @@ router.get('', function(req, res) {
 	            	rr[i] = result[i];
 	       		 }
 				json=result;
-				console.log(json);
 				res.send(result);	
 			});
 		});
 	}
 	if(msg=="del"){
 		var id= param.id;
-		console.log(id);
+		console.log(id)
 		pool.getConnection(function(err, connection){
 			var sql= "delete from  info where ID="+id+"";
 			connection.query(sql,function(err, result){
 				res.send(result);
 			});
 		});
-		res.send();
+	}
+	if(msg=="acc"){
+		var id= param.id;
+		pool.getConnection(function(err, connection){
+			var sql= "SELECT acc from info where ID="+id+"";
+			connection.query(sql,function(err, result){
+				//console.log(result)
+				res.send(result);
+			});
+		});
+	}
+	if(msg=="acc_update"){
+		var id= param.id;
+		var newNum= param.acc_num;
+		var oldNum=param.old_num;
+		pool.getConnection(function(err, connection){
+			var updatemsg1='update info set acc='+newNum+' where ID='+id+' ';
+			var updatemsg2={acc:oldNum};
+			connection.query(updatemsg1,updatemsg2,function(err, result){
+				//console.log(result)
+				res.send(result);
+			});
+		});
+	}
+	if(msg=="ref"){
+		var id= param.id;
+		pool.getConnection(function(err, connection){
+			var sql= "SELECT ref from info where ID="+id+"";
+			connection.query(sql,function(err, result){
+				console.log(result)
+				res.send(result);
+			});
+		});
+	}
+	if(msg=="ref_update"){
+		var id= param.id;
+		var newNum= param.acc_num;
+		var oldNum=param.old_num;
+		pool.getConnection(function(err, connection){
+			var updatemsg1='update info set ref='+newNum+' where ID='+id+' ';
+			var updatemsg2={ref:oldNum};
+			connection.query(updatemsg1,updatemsg2,function(err, result){
+				//console.log(result)
+				res.send(result);
+			});
+		});
 	}
 });
 module.exports = router;

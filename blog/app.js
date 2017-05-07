@@ -17,6 +17,9 @@ var weather = require('./routes/weather');
 var add_shu = require('./routes/add_shu');
 var weibo  = require('./routes/weibo');
 var weibo1 = require('./routes/weibo1');
+var shu_list = require('./routes/shu_list');
+var shu_list1 = require('./routes/shu_list1');
+var myMsg= require("./routes/myMsg");
 
 var app = express();
 
@@ -45,6 +48,9 @@ app.use('/weather',weather);
 app.use('/add_shu',add_shu);
 app.use('/weibo',weibo);
 app.use('/weibo1',weibo1);
+app.use('/shu_list',shu_list);
+app.use('/shu_list1',shu_list1);
+app.use("/myMsg",myMsg);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

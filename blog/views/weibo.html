@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <title>简易微博</title>
 <link rel='stylesheet' href='/stylesheets/weibo.css' />
-<script src="/js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/public.js"></script>
 <script>
 window.onload=function(){
     var oTxt=document.getElementById('t1');
@@ -64,12 +65,11 @@ window.onload=function(){
                 act:'get'
             },
             success:function(data){
-                console.log(data);
                 var arr=data;
+                var index=i;
                 for(var i=0;i<arr.length;i++){
                      var oDiv=createMsg(arr[i].content,arr[i].name,arr[i].time,arr[i].acc,arr[i].ref,arr[i].ID);
                      oBox.appendChild(oDiv);
-                     console.log()
                 }
             },
             err:function(){
@@ -97,6 +97,7 @@ window.onload=function(){
        
         var cut=oDiv.getElementsByTagName('a')[2];
         cut.onclick=function(){
+            console.log(id)
             if(confirm('确定删除吗？')){
                 $.ajax({
                     url:URL,
@@ -115,9 +116,73 @@ window.onload=function(){
                 });    
             };
         };
-        $(".top").click(function(){
+       var top=oDiv.getElementsByTagName('a')[0];
+       top.onclick=function(){
+            console.log(id);
+            $.ajax({
+                url:URL,
+                data:{
+                    act:'acc',
+                    id:id
+                },
+                success:function(data){
+                    var json=data;
+                    var num=(json[0].acc-1+2);
+                    $.ajax({
+                        url:URL,
+                        data:{
+                            act:"acc_update",
+                            id:id,
+                            acc_num:num,
+                            old_num:json[0].acc-1+1
+                        },
+                        success:function(data){
+                            console.log(data)
+                            getPageDate(1);
+                        }
+                    })
+                    /*oBox.removeChild(oDiv);
+                    getPageDate(1);*/
+                     //   getPageCount();
+                    
+                }
+            }); 
+           
+        }; 
+        var low=oDiv.getElementsByTagName('a')[1];
+        low.onclick=function(){
             
-        });
+            $.ajax({
+                url:URL,
+                data:{
+                    act:'ref',
+                    id:id
+                },
+                success:function(data){
+                    var json=data;
+                    var num=(json[0].ref-1+2);
+                    $.ajax({
+                        url:URL,
+                        data:{
+                            act:"ref_update",
+                            id:id,
+                            acc_num:num,
+                            old_num:json[0].ref-1+1
+                        },
+                        success:function(data){
+                            console.log(data)
+                            getPageDate(1);
+                        }
+                    })
+                    /*oBox.removeChild(oDiv);
+                    getPageDate(1);*/
+                     //   getPageCount();
+                    
+                }
+            }); 
+           
+        }; 
+      
          return oDiv;
     }
     function toDou(num){

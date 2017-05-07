@@ -6,8 +6,29 @@
 		<title>价格提交</title>
 		<link rel="stylesheet" href="/stylesheets/public.css" />
 		<link rel="stylesheet" href="/stylesheets/add_shu.css" />
+		<script src="/js/jquery.min.js"></script>
 		<script src="/js/public.js"></script>
 		<script src="/js/add_shus.js"></script>
+		<script>
+			$(function(){
+				$(".submit").click(function(){
+						$.ajax({
+						url:"",
+						data:{
+							name:$(".name").val(),
+							phone:$(".phone").val(),
+							sender:sessionStorage.getItem('username'),
+							address:$(".address").val(),
+							type:$("#type").val(),
+							price:$(".price").val(),
+							beizhu:$(".beizhu").val()
+						}
+					});
+						console.log($(".name").val())
+				});
+			
+			});
+		</script>
 	</head>
 	<body>
 		<header>
@@ -15,40 +36,40 @@
 			<a href="disasterList.html"><返回</a>
 			<span class="title">蔬菜信息上传</span>
 		</header>
-		<form action="" method="get">
-			<ul class="list">
-				<li>
-					<span class="txt1">蔬菜名</span>
-					<input type="text" value="" name="name"/>
-				</li>
-				<li>
-					<span class="txt1">手机号码</span>
-					<input type="text" name="phone"/>
-				</li>
-				<li>
-					<span class="txt1">位置坐标</span>
-					<input type="text" name="address"/>
-				</li>
-				<li>
-					<span class="txt1">蔬菜类型</span>
-					<select name="type" id="type">
-						<option value="melon">瓜类</option>
-						<option value="fruit">果类</option>
-						<option value="vegetable">蔬菜</option>
-						<option value="meat">肉类</option>
-					</select>
-				</li>
-				<li>
-					<span class="txt1">蔬菜价格</span>
-					<input type="text" name="price"/>
-				</li>
-				<li>
-					<span class="txt1">蔬菜规格</span>
-					<textarea name="beizhu" rows="" cols=""></textarea>
-				</li>
-			</ul>
-			<input type="submit" value="提 交" class="submit"/>
-		</form>
+
+		<ul class="list">
+			<li>
+				<span class="txt1">蔬菜名</span>
+				<input type="text" value="" name="name" class="name"/>
+			</li>
+			<li>
+				<span class="txt1">手机号码</span>
+				<input type="text" name="phone" class="phone"/>
+			</li>
+			<li>
+				<span class="txt1">位置坐标</span>
+				<input type="text" name="address" class="address"/>
+			</li>
+			<li>
+				<span class="txt1">蔬菜类型</span>
+				<select name="type" id="type">
+					<option value="瓜类">瓜类</option>
+					<option value="果类">果类</option>
+					<option value="蔬菜">蔬菜</option>
+					<option value="肉类">肉类</option>
+				</select>
+			</li>
+			<li>
+				<span class="txt1">蔬菜价格</span>
+				<input type="text" name="price" class="price"/>
+			</li>
+			<li>
+				<span class="txt1">蔬菜规格</span>
+				<textarea name="beizhu" rows="" cols="" class="beizhu"></textarea>
+			</li>
+		</ul>
+		<input type="button" value="提 交" class="submit"/>
+
 		
 	</body>
 </html>

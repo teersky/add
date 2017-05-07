@@ -18,12 +18,10 @@ router.get('', function(req, res, next) {
 		var price=param.price;
 		var type=param.type;
 		var beizhu=param.beizhu;
-		var sender=sessionStorage.getItem('userName');
+		var sender=param.sender;
 		var dat=String(new Date().getTime());
+console.log(param)
 		
-		
-		
-		console.log(msg)
 		if(name==' '){
 			var result={
 				err:201,
@@ -56,9 +54,10 @@ router.get('', function(req, res, next) {
 			res.render('add_shu', result);
 			return false;
 		}
-		var msg=[name,price,dat, sender,address,beizhu,phone];
+		var msg=[name,price,dat, sender,address,beizhu,phone,type];
 		// 建立连接 增加一个信息 
-		connection.query('INSERT INTO '+ type +'(id,name,price,time,sender,address,beizhu,phone) VALUES(0,?,?,?,?,?,?,?)', msg, function selectCb(err, results, fields) {
+		 console.log(msg);
+		connection.query('INSERT INTO vegetable(id,name,price,time,sender,address,beizhu,phone,type) VALUES(0,?,?,?,?,?,?,?,?)', msg, function selectCb(err, results, fields) {
 			 if(err){
         		 console.log('[INSERT ERROR] - ',err.message);
          		return;

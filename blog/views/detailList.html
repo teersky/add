@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>蔬菜详情</title>
+		<link rel="stylesheet" href="/stylesheets/public.css" />
+		<link rel="stylesheet" href="/stylesheets/disaster.css" />
+		<script src="/js/public.js"></script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/vue.min.js"></script>
+		<script>
+		$(function(){
+			var nameUrl=(decodeURI(window.location.href));
+			var name=nameUrl.split("=")[1];
+			$.ajax({
+				url:"detailList1",
+				data:{
+					name:name
+				},
+				success:function(data){
+					var date=new Date(data.time-1+1);
+					
+					var y=date.getFullYear();
+					var m=date.getMonth();
+					var d=date.getDate();
+					var h=date.getHours();
+					var min=date.getMinutes();
+					var s=date.getSeconds();
+					var time=y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+					//var time=0; 
+					console.log(data);
+					new Vue({
+						el:".box",
+						data:{
+							msg:data,
+							time:time
+						}
+					});
+				}
+			});
+			
+			console.log(name);
+			
+			   function getUrlParam(name){
+			        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			        var r = window.location.search.substr(1).match(reg);
+			        if (r!=null) return unescape(r[2]); return null;
+			    }
+			
+		});
+		</script>
+	</head>
+	<body>
+		<header>
+			<!--<a href="disasterList.html"><span class="return"><返回</span></a>-->
+			<span class="title">价格信息</span>
+		</header>
+		<div class="box">
+			<div class="cityName">
+				<span class="cityName_title">{{msg.name}}</span>
+			</div>
+			<div class="content">
+				<div class="contentBox">
+					<span class="contentBox_title"><span>价格:</span> {{msg.price}}</span>
+					<span class="contentBox_title"><span>发 布 人:</span> {{msg.sender}}</span>
+					<span class="contentBox_title"><span>发布时间: </span>{{time}}</span>
+					<span class="contentBox_title"><span>联系方式: </span>{{msg.phone}}</span>
+					<span class="contentBox_title"><span>地址: </span>{{msg.address}}</span>
+					<span class="contentBox_title"><span>蔬菜类型:</span> {{msg.type}}</span>
+					<span class="contentBox_text">
+						<span class="txt">备注</span>
+						<span class="txt">{{msg.beizhu}}</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

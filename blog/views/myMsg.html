@@ -3,40 +3,73 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" href="/stylesheets/public.css" />
-	<link rel="stylesheet" href="/stylesheets/myMsg.css" />
+	<link rel="stylesheet" href="/stylesheets/public.css">
+	<link rel="stylesheet" href="/stylesheets/myMsg.css">
+	<script src="/js/public.js"></script> 
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/vue.min.js"></script>
-	<script src="/js/public.js"></script>
 	<script>
 		$(function(){
 			var username=sessionStorage.getItem('username');
 			var type=sessionStorage.getItem('type');
-			console.log(username+"+"+type)
+
 			$.ajax({
 				url:"myMsg2",
 				data:{
 					username:username,
 					type:type
 				},
+				anysc:false,
 				success:function(data){
-					console.log(data)
+					console.log(data);
+					var msg={};
+					var msg1=[];
+					var sexs='';
+					if(data.sex=="1"){
+						sexs="我是boy"
+						
+					}
+					if(data.sex=="0"){
+						sexs="我是gril"
+					}
+					
+					msg.姓名=username;
+					msg.类型=type;
+					msg.性别=sexs;
+					msg.地址=data.istitute;
+					msg.点赞=data.num;
+					for(var js in msg){
+						msg1.push(js);
+						
+					}
+					new  Vue({
+						el:".oul",
+						data:{
+							mess1:msg1,
+							mess2:msg
+						}
+					});
 				}
 			});
-			new  Vue({
-				el:".oul",
-				data:''
-			});
+			
 
 		});
 	</script>
 </head>
 <body>
+	<header>
+		<img src="/images/weather/per.png" alt="" class="pre" />
+		<span class="title">个人信息</span>
+		<span class="adds">+</span>
+	</header>
 	<ul class='oul'>
-		<li><span>姓名</span><span>teersky</span><div class="clear"></div></li>
-		<li><span>姓名</span><span>teersky</span><div class="clear"></div></li>
-		<li><span>姓名</span><span>teersky</span><div class="clear"></div></li>
-		<li><span>姓名</span><span>teersky</span><div class="clear"></div></li>
+		<li v-for="(m, value) in mess1">
+			<span> {{m}} </span>
+			<span> {{mess2[m] }}</span>
+			<div class="clear"></div>
+		</li>
+		
 	</ul>
+	
 </body>
 </html>

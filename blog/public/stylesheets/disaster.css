@@ -1,0 +1,150 @@
+header{
+	width: 100%;
+	height: 2.133333rem;
+	position: relative;
+	background: #8592CA;
+}
+.return{
+	width: 4rem;
+	height: 100%;
+	font-size:0.64rem;
+	text-indent: 1rem;
+	display: block;
+	float:left;
+	line-height: 2rem;
+}
+header a{
+	display: block;
+	width: 2rem;
+	height: 100%;
+	color:#ffffff;
+	line-height: 2.2rem;
+	font-size:0.64rem;
+	z-index: 999;
+	position: relative;
+	float:right;
+}
+header a:hover{
+	color:#C60819;
+}
+.title{
+	width: 100%;
+	font-size:0.768rem;
+	color:#ffffff;
+	letter-spacing:0;
+	display: block;
+	float:left;
+	position: absolute;
+	top: 0rem;
+	text-align: center;
+	font-weight: 400;
+	line-height: 2.2rem;
+}
+
+.box{
+	width: 100%;
+	/*background: #F2F2F2;*/
+	padding: 1rem 0 4rem 0;
+}
+
+.cityName{
+	width: 100%;
+	height: 2rem;
+	background: #fff;
+	position: relative;
+}
+
+.cityName_title{
+	font-size: 0.8533333rem;
+	display: block;
+	color:#333333;
+	text-align: center;
+	line-height: 2.15rem;
+}
+.cityName_time{
+	font-size: 0.554666666rem;
+	color:#888888;
+	text-align: center;
+	display: block;
+}
+.content{
+	width: 100%;
+	/*padding: 1.1306666rem;*/
+	background: #f9f9f9;
+	margin-top: 0.2rem;
+	padding-bottom: 4rem;
+}
+
+.contentBox{
+	width: 13.8rem;
+	margin-left: 1.1306666rem;
+	padding-top: 1.1306666rem;
+}
+.contentBox_title{
+	display: block;
+	font-size:0.64rem;
+	color:#333333;
+	line-height: 0.96rem;
+	font-weight: 500;
+	margin: 0.3rem 0;
+	background: #fff;
+	padding: 0.3rem 0;
+}
+.contentBox_title span{
+	display: inline-block;
+	width: 4rem;
+}
+.contentBox_time{
+	display: block;
+	font-size:0.56rem;
+	color:#888888;
+	line-height: 0.96rem;
+	font-weight: 500;
+}
+.contentBox_text{
+	display: block;
+	font-size:0.64rem;
+	color:#333333;
+	line-height: 0.96rem;
+	font-weight: 500;
+	width: 100%;
+	margin-top: 0.69rem;
+	background: #fff;
+	padding: 0.96rem 0;
+}
+.contentBox_text .txt{
+	display: block;
+	font-size:0.64rem;
+	color:#333333;
+	line-height: 0.96rem;
+	font-weight: 500;
+	width: 100%;
+}
+.list{
+	width: 100%;
+	padding: 0.64rem 0 4rem 0;
+}
+
+.list li{
+	width: 100%;
+	height: 1.92rem;
+	background: #ffffff;
+	margin: 0.4266666rem 0;
+}
+
+.list li .txt1{
+	line-height: 1.92rem;
+	font-size: 0.64rem;
+	color:#333333;
+	text-indent: 0.5rem;
+	display: block;
+	float:left;
+}
+.list li .right{
+	display: block;
+	float:right;
+	line-height: 2.2rem;
+	font-size: 0.8rem;
+	color: #4C5A9E;
+	margin-right: 0.6rem;
+}

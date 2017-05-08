@@ -1,9 +1,52 @@
 body{
-	width:10rem
+	width:100%;
+	overflow-x: hidden;
 }
+header{
+	width: 16rem;
+	height: 1.92rem;
+	background: rgba(87,106,185,0.6);
+	position: relative;
 
+	z-index: 10;
+}
+.title{
+	font-family:'PingFangSC-Regular';
+	font-size:0.768rem;
+	color:#ffffff;
+	letter-spacing:0;
+	text-align:left;
+	display: block;
+	position: absolute;
+	bottom:0.810667rem;
+	left:50%;
+	margin-left: -1.4rem;
+}
+.location{
+	width: 1.276rem;
+	height: 1.276rem;
+	position: absolute;
+	left: 14.336rem;
+	bottom: 0.254rem;
+	background: url(/images/weather/dw_F.png) no-repeat;
+	background-size: 0.676rem;
+	border-radius: 50%;
+	background-position: 0.3rem;
+	border:0.05rem solid #fff;
+}
+.location img{
+	width: 0.27733rem;
+	position: absolute;
+	left:0.5rem;
+	top:0.4rem;
+}
+.pre{
+	width: 1.3867rem;
+	margin-left: 0.4267rem;
+	margin-top: 0.25rem;
+}
 .oul{
-	width: 12rem;
+	width: 16rem;
 }
 .oul li{
 	width: 90%;
@@ -25,4 +68,17 @@ body{
 .oul >li span:first-child{
 	width: 3rem;
 
+}
+.adds{
+	display: block;
+	float:right;
+	font-size: 1.8rem;
+	color:#fff;
+	margin-right: 0.3rem;
+	cursor:pointer;
+	background: rgba(0,0,0,0);
+}
+.adds:active{
+	transition: 0.5s all ease;
+	transform: rotate(90deg);
 }

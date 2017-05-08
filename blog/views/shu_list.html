@@ -5,11 +5,24 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="/stylesheets/public.css" />
 	<link rel="stylesheet" href="/stylesheets/shu_list.css" />
-	<script src="/js/public.js"></script>
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/vue.min.js"></script>
 	<script>
 		$(function(){
+			(function () {
+			    var docEl = document.documentElement;
+			    var wid=document.documentElement.clientWidth || document.body.clientWidth;
+			    var resize = 'orientationchange' in window ? 'orientationchange' : 'resize';
+			    var setRem = function () {
+			 
+			        var screenWidth = docEl.clientWidth || window.screen.width || 360;
+			        // 1080 PSD宽度(可变的)
+			        docEl.style.fontSize = (wid/16) + 'px';
+			    };
+			 
+			    window.addEventListener('resize', setRem, false);
+				    setRem();
+				})();
 			$.ajax({
 				url:"shu_list1",
 				success:function(data1){
@@ -33,33 +46,14 @@
 	<div class="father">
 		<ul class="oUl">
 			<li v-for='m in msg'>
-				<span class="ali_1"> {{ m.name }} </span>
-				<span class="ali_2"><span>价格：</span><span>{{ m.price }}</span><span>元</span></span>
-				<span class="ali_3"><span>发布人：</span><span>{{ m.sender }}</span></span>
-				<span class="ali_4"><span>类型：</span><span>{{ m.type }}</span></span>
-				<div class="clear"></div>
+				<a :href="'detailList?name='+m.name">
+					<span class="ali_1"> {{ m.name }} </span>
+					<span class="ali_2"><span>价格：</span><span>{{ m.price }}</span><span>元</span></span>
+					<span class="ali_3"><span>发布人：</span><span>{{ m.sender }}</span></span>
+					<span class="ali_4"><span>类型：</span><span>{{ m.type }}</span></span>
+					<div class="clear"></div>
+				</a>
 			</li>
-	<!-- 		<li>
-		<span class="ali_1">苹果</span>
-		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
-		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
-		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
-		<div class="clear"></div>
-	</li>
-	<li>
-		<span class="ali_1">苹果</span>
-		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
-		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
-		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
-		<div class="clear"></div>
-	</li>
-	<li>
-		<span class="ali_1">苹果</span>
-		<span class="ali_2"><span>价格：</span><span>2.4</span><span>元</span></span>
-		<span class="ali_3"><span>发布人：</span><span>teerky</span></span>
-		<span class="ali_4"><span>类型：</span><span>蔬菜</span></span>
-		<div class="clear"></div>
-	</li> -->
 		</ul>
 	</div>
 </body>

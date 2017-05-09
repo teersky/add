@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 
 	<head>
@@ -138,14 +138,16 @@
 		<script>
 			checkUser();
 			function checkUser(){
-				var hrefArr=['#','#','#','#','weather','#','#','#'];
+				var hrefArr=['shu_list','all_shu','#','weibo','weather','myMsg','#','aboutUs'];
 				
 				$(".content a").each(function(index){
 					$(this).click(function(){
-						alert(111);
-						var getUserName=sessionStorage.getItem('userName');
+						var getUserName=sessionStorage.getItem('username');
 						console.log(getUserName);
+						sessionStorage.setItem("url", hrefArr[index]);
+
 						if(getUserName==null){
+							sessionStorage.setItem("url", hrefArr[index]);
 							location.href='login';
 						}else{
 							location.href=hrefArr[index];

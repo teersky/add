@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+	<link rel="stylesheet" href="/stylesheets/public.css">
+	<link rel="stylesheet" href="/stylesheets/all_shu.css">
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/public.js"></script>
+	<script src="/js/vue.min.js"></script>
+	<script>
+	$(function(){
+		$(".father ul li").each(function(index){
+			$(this).click(function(){
+				console.log($(this).html());
+				$(".father ul li").removeClass("ali_active").eq(index).addClass("ali_active");
+				getMsg(index);
+			});
+		});
+		getMsg(0)
+		function getMsg(i){
+			$(".oUl").html("");
+			$.ajax({
+				url:"myMsg2",
+				data:{
+					act:"all_shu",
+					getMsg:$(".father ul li").eq(i).html()
+				},
+				success:function(data1){
+					for(var i=0;i<data1.length; i++){
+						newLi(data1[i].name,data1[i].price,data1[i].sender,data1[i].type)
+						
+					}
+				}
+			});
+		}
+
+		function newLi(name,price,sender,type){
+			$(".oUl").append("<li>"
+							+"<a href=detailList?name="+name+">"
+							+"<span class='ali_1'> "+name+" </span>"
+							+"<span class='ali_2'><span>价格：</span><span>"+price+"</span><span>元</span></span>"
+						+"<span class='ali_3'><span>发布人：</span><span>"+sender+"</span></span>"
+						+"<span class='ali_4'><span>类型：</span><span>"+type+"</span></span>"
+						+"<div class='clear'></div>"
+						+"</a>"
+						+"</li>"
+			)
+		}
+	});
+	</script>
+
+</head>
+<body>
+	<header>
+		<span class="title">所有蔬菜</span>
+	</header>
+	<div class="father">
+		<ul class="btn" >
+			<!-- <li :id="branch" :value="branch" name="branch" ref="branch" v-for="branch in  branches" v-on:click="fetchData(branch)"></li> -->
+			<li class="ali_active">全部</li>
+			<li >蔬菜</li>
+			<li>瓜类</li>
+			<li>果类</li>
+			<li>肉类</li>
+		</ul>
+		<ul class="oUl">
+			<!-- <li  v-for="commit in commits">
+				<a :href="'detailList?name='+m.name">
+					<span class="ali_1"> {{ m.name }} </span>
+					<span class="ali_2"><span>价格：</span><span>{{ m.price }}</span><span>元</span></span>
+					<span class="ali_3"><span>发布人：</span><span>{{ m.sender }}</span></span>
+					<span class="ali_4"><span>类型：</span><span>{{ m.type }}</span></span>
+					<div class="clear"></div>
+				</a>
+			</li> -->
+		</ul>
+	</div>
+</body>
+</html>

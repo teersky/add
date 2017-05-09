@@ -18,7 +18,7 @@
 							name:$(".name").val(),
 							phone:$(".phone").val(),
 							sender:sessionStorage.getItem('username'),
-							address:$(".address").val(),
+							address:sessionStorage.getItem('cityname'),
 							type:$("#type").val(),
 							price:$(".price").val(),
 							beizhu:$(".beizhu").val()
@@ -33,7 +33,6 @@
 	<body>
 		<header>
 			<!--<span class="return"><a href="javascript:;"><返回</a></span>-->
-			<a href="disasterList.html"><返回</a>
 			<span class="title">蔬菜信息上传</span>
 		</header>
 

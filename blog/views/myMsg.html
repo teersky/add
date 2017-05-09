@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>个人信息</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
 	<link rel="stylesheet" href="/stylesheets/public.css">
 	<link rel="stylesheet" href="/stylesheets/myMsg.css">
 	<script src="/js/public.js"></script> 
@@ -12,47 +13,159 @@
 		$(function(){
 			var username=sessionStorage.getItem('username');
 			var type=sessionStorage.getItem('type');
-
-			$.ajax({
-				url:"myMsg2",
-				data:{
-					username:username,
-					type:type
-				},
-				anysc:false,
-				success:function(data){
-					console.log(data);
-					var msg={};
-					var msg1=[];
-					var sexs='';
-					if(data.sex=="1"){
-						sexs="我是boy"
-						
-					}
-					if(data.sex=="0"){
-						sexs="我是gril"
-					}
-					
-					msg.姓名=username;
-					msg.类型=type;
-					msg.性别=sexs;
-					msg.地址=data.istitute;
-					msg.点赞=data.num;
-					for(var js in msg){
-						msg1.push(js);
-						
-					}
-					new  Vue({
-						el:".oul",
-						data:{
-							mess1:msg1,
-							mess2:msg
+			if(type=='business'){
+				$(".bus_btn").css({'display':'block'});
+			}else{
+				$(".bus_btn").css({'display':'none'});
+			}
+			getMsg();
+			function getMsg(){
+				$.ajax({
+					url:"myMsg2",
+					data:{
+						act:"myMsg",
+						username:username,
+						type:type
+					},
+					anysc:false,
+					success:function(data){
+						var msg={};
+						var msg1=[];
+						var sexs='';
+						if(data.sex=="1"){
+							sexs="我是boy"
+							
 						}
-					});
+						if(data.sex=="0"){
+							sexs="我是gril"
+						}
+						
+						msg.姓名=username;
+						msg.类型=type;
+						msg.性别=sexs;
+						msg.地址=data.istitute;
+						msg.点赞=data.num;
+						msg.市县=data.county;
+						msg.手机=data.phone;
+						msg.电话=data.tel;
+						msg.邮箱=data.email;
+						msg.是否本县=data.isOwn;
+						for(var js in msg){
+							msg1.push(js);
+							
+						}
+						new  Vue({
+							el:".oul",
+							data:{
+								mess1:msg1,
+								mess2:msg
+							}
+						});
+					}
+				});
+			}
+			var bReady=true;
+			$(".adds").click(function(){
+				if(bReady){
+					$(".list").css({display:'block'});
+				}else{
+					$(".list").css({display:'none'});
 				}
+				bReady=!bReady;
 			});
 			
-
+			$(".changeMsg").click(function(){
+				$(".shad").css({display:'block'});
+				$(".shadow").css({display:'block'});
+			});
+			$(".shad").click(function(){
+				$(".shad").css({display:'none'});
+				$(".shadow").css({display:'none'});
+				$(".list").css({display:'none'});
+				$(".change").css({display:'none'});
+			});
+			$(".changePwd").click(function(){
+				$(".shad").css({display:'block'});
+				$(".shadow").css({display:'block'});
+				$(".change").css({display:'block'});
+			});
+			$(".btn").click(function(){
+				$(".shad").css({display:'none'});
+				$(".shadow").css({display:'none'});
+				$(".list").css({display:'none'});
+				var c1=$(".c1").val();
+				var c2=$(".c2").val();
+				var c3=$(".c3").val();
+				var c4=$(".c4").val();
+				var c5=$(".c5").val();
+				var arr=[c1,c2,c3,c4,c5];
+				$.ajax({
+					url:"myMsg2",
+					data:{
+						act:"add_Msg",
+						c1:c1,
+						c2:c2,
+						c3:c3,
+						c4:c4,
+						c5:c5,
+						type:sessionStorage.getItem("type"),
+						user:sessionStorage.getItem("username")
+					},
+					success:function(data){
+						getMsg();
+					}
+				})
+			});
+			$(".ch_btn").click(function(){
+				var oldPsd=$(".oldPsd").val();
+				var newPsd1=$(".newPsd1").val();
+				var newPsd2=$(".newPsd2").val();
+				if(oldPsd != ""){
+					if(newPsd1==newPsd2){
+						$.ajax({
+							url:"myMsg2/getPsd",
+							type:"POST",
+							data:{
+								act:"getPsd",
+								user:sessionStorage.getItem("username"),
+								type:sessionStorage.getItem("type"),
+								psd:oldPsd
+							},
+							success:function (data) {
+								$.ajax({
+									url:"myMsg2/setPsd",
+									type:"POST",
+									data:{
+										user:sessionStorage.getItem("username"),
+										type:sessionStorage.getItem("type"),
+										newPsd:newPsd1
+									},
+									success:function (data) {
+										if(data.err==0){
+											$(".shad").css({display:'none'});
+											$(".shadow").css({display:'none'});
+											$(".change").css({display:'none'});
+										}
+									}
+								})
+							}
+						})
+					}else{
+						alert("两次输入的密码不匹配，请重试");
+						$(".oldPsd").val('');
+						$(".newPsd1").val('');
+						$(".newPsd2").val('');
+						return false;
+					}
+				}else{
+					alert("请输入原始密码");
+					$(".oldPsd").val('');
+					$(".newPsd1").val('');
+					$(".newPsd2").val('');
+					return false;
+				}
+				
+			});
 		});
 	</script>
 </head>
@@ -61,6 +174,12 @@
 		<img src="/images/weather/per.png" alt="" class="pre" />
 		<span class="title">个人信息</span>
 		<span class="adds">+</span>
+		<ul class="list">
+			<li class="changeMsg">修改信息</li>
+			<li class="changePwd">修改密码</li>
+			<li class='bus_btn'><a href="add_shu">价格发布</a></li>
+			<li class='bus_btn'><a href="my_shu">我的价格</a></li>
+		</ul>
 	</header>
 	<ul class='oul'>
 		<li v-for="(m, value) in mess1">
@@ -70,6 +189,48 @@
 		</li>
 		
 	</ul>
+	<div class="shad"></div>
+	<div class="shadow">
+		<ul>
+			<li><b class="add_msg">添加信息</b></li>
+			<li>
+				<span class="county_n">区(县)</span><input type="text" class="county_v c1">
+			</li>
+			<li>
+				<span class="phone">手机</span><input type="text" class="county_v c2">
+			</li>
+			<li>
+				<span class="tel">电话</span><input type="text" class="county_v c3">
+			</li>
+			<li>
+				<span class="email">邮件</span><input type="text" class="county_v c4">
+			</li>
+			<li>
+				<span class="county_n">是否本县</span>
+				<input type="radio" class="county_v c5" value="是" name="check" checked="true">是
+				<input type="radio" class="county_v c5" value="否" name="check">否
+			</li>
+
+		</ul>
+		<button class="btn">提交</button>
+	</div>
+	<div class="change">
+		<ul>
+			<li><b class="add_msg">修改密码</b></li>
+			<li>
+				<span class="county_n">原始密码</span><input type="password" class="county_v oldPsd">
+			</li>
+			<li>
+				<span class="phone">新密码</span><input type="password" class="county_v newPsd1">
+			</li>
+			<li>
+				<span class="tel">新密码</span><input type="password" class="county_v newPsd2">
+			</li>
+
+		</ul>
+		<button class="ch_btn">提交</button>
+	</div>
+	
 	
 </body>
 </html>

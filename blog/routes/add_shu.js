@@ -20,7 +20,6 @@ router.get('', function(req, res, next) {
 		var beizhu=param.beizhu;
 		var sender=param.sender;
 		var dat=String(new Date().getTime());
-console.log(param)
 		
 		if(name==' '){
 			var result={

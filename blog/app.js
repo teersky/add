@@ -24,6 +24,9 @@ var get= require("./routes/get");
 var myMsg2= require("./routes/myMsg2");
 var detailList = require("./routes/detailList");
 var detailList1= require("./routes/detailList1");
+var aboutUs= require("./routes/aboutUs");
+var all_shu= require("./routes/all_shu");
+var my_shu= require("./routes/my_shu");
 
 var app = express();
 
@@ -58,6 +61,9 @@ app.use("/myMsg",myMsg);
 app.use("/myMsg2",myMsg2);
 app.use("/detailList",detailList);
 app.use("/detailList1",detailList1);
+app.use("/aboutUs",aboutUs);
+app.use("/all_shu",all_shu);
+app.use("/my_shu",my_shu);
 
 
 // catch 404 and forward to error handler

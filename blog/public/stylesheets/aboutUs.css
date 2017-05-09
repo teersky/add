@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* CSS Document */
+
+ header{
+	width: 100%;
+	height: 1.92rem;
+	background: rgba(87,106,185,0.6);
+	position: relative;
+	z-index: 10;
+	border-bottom:0.04rem solid #f8f;
+}
+.title{
+	font-size:0.768rem;
+	color:#ffffff;
+	letter-spacing:0;
+	text-align:left;
+	display: block;
+	position: absolute;
+	bottom:0.810667rem;
+	left:50%;
+	margin-left: -1.4rem;
+}
+.location{
+	width: 1.276rem;
+	height: 1.276rem;
+	position: absolute;
+	left: 14.336rem;
+	bottom: 0.254rem;
+	background: url(/images/weather/dw_F.png) no-repeat;
+	background-size: 0.676rem;
+	border-radius: 50%;
+	background-position: 0.3rem;
+	border:0.05rem solid #fff;
+}
+.location img{
+	width: 0.27733rem;
+	position: absolute;
+	left:0.5rem;
+	top:0.4rem;
+}
+.pre{
+	width: 1.3867rem;
+	margin-left: 0.4267rem;
+	margin-top: 0.25rem;
+}
+
+
+.guanyu_1 { width:100%; background: rgba(87,106,185,0.6);padding: 2rem 0;}
+.guanyu_1 img { width:100%; border-radius: 50%; border:0.04rem solid #8888;}
+
+.msg{
+	width: 100%;
+	margin-top: 0.3rem;
+	background: #fff;
+	padding: 2rem 0;
+}
+.msg span{
+	display: block;
+	text-align: center;
+	line-height: 1.4rem;
+	font-size: 0.8rem;
+	color:#333;
+}
+.msg .check{
+	position: fixed;
+	left:50%;
+	bottom:1rem;
+	transform: translateX(-50%);
+}

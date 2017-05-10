@@ -1,17 +1,17 @@
 $(function(){
 	
 	$(".text1").focus(function(){
-		if($(".text2").val() !='' || $(".text2").val() !='请输入用户名'){
+		if($(".text1").val() =='' || $(".text1").val() =='请输入用户名'){
 			$(".text1").val("");
 		}
 	});
 	$(".text1").blur(function(){
-		if($(".text2").val() !='' || $(".text2").val() !='请输入用户名'){
+		if($(".text2").val() =='' || $(".text2").val() =='请输入用户名'){
 			$(".text1").val("请输入用户名");
 		}
 	});
 	$(".text2").focus(function(){
-		if($(".text2").val() !='' || $(".text2").val() !='请输入密码'){
+		if($(".text2").val() =='' || $(".text2").val() =='请输入密码'){
 			$(".text2").val("");
 			$(".text2").attr('type','password');
 		}
@@ -26,7 +26,7 @@ $(function(){
 		}
 	});
 	$(".text3").focus(function(){
-		if($(".text3").val() !='' || $(".text3").val() !='请输入密码'){
+		if($(".text3").val() =='' || $(".text3").val() =='请输入密码'){
 			$(".text3").val("");
 			$(".text3").attr('type','password');
 		}

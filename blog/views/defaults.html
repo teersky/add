@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ch">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>后台管理首页</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(function() {
+                $(".meun-item").click(function() {
+                    $(".meun-item").removeClass("meun-item-active");
+                    $(this).addClass("meun-item-active");
+                    var itmeObj = $(".meun-item").find("img");
+                    itmeObj.each(function() {
+                        var items = $(this).attr("src");
+                        items = items.replace("_grey.png", ".png");
+                        items = items.replace(".png", "_grey.png")
+                        $(this).attr("src", items);
+                    });
+                    var attrObj = $(this).find("img").attr("src");
+                    ;
+                    attrObj = attrObj.replace("_grey.png", ".png");
+                    $(this).find("img").attr("src", attrObj);
+                });
+                $("#topAD").click(function() {
+                    $("#topA").toggleClass(" glyphicon-triangle-right");
+                    $("#topA").toggleClass(" glyphicon-triangle-bottom");
+                });
+                $("#topBD").click(function() {
+                    $("#topB").toggleClass(" glyphicon-triangle-right");
+                    $("#topB").toggleClass(" glyphicon-triangle-bottom");
+                });
+                $("#topCD").click(function() {
+                    $("#topC").toggleClass(" glyphicon-triangle-right");
+                    $("#topC").toggleClass(" glyphicon-triangle-bottom");
+                });
+                $(".toggle-btn").click(function() {
+                    $("#leftMeun").toggleClass("show");
+                    $("#rightContent").toggleClass("pd0px");
+                });
+                getUserMsg("admininstator",$("#Admin"));
+                getUserMsg("business",$("#Business"));
+                getUserMsg("peasant",$("#Present"));
+                $(".meun-item").eq(0).click(function(){
+                    getUserMsg("admininstator",$("#Admin"));
+                    getUserMsg("business",$("#Business"));
+                    getUserMsg("peasant",$("#Present"));
+                });
+                $(".meun-item").eq(1).click(function(){
+                    getCheck($(".tablebody1"));
+                });
+                $(".meun-item").eq(2).click(function(){
+                    getMsh($(".tablebody2"));
+                });
+                $(".meun-item").eq(3).click(function(){
+                    getNews($(".tablebody3"));
+                });
+                $("#userName").html(sessionStorage.getItem("username"))
+                
+                function getCheck(obj){
+                    $.ajax({
+                        url:"myMsg2",
+                        data:{
+                            act:"getCheck"
+                        },
+                        success:function(data){
+                            obj.html("");
+                            var msg=data;
+                            for(var i=0;i<data.length;i++){
+                                var date=new Date(data[i].time-1+1);
+                                var y=date.getFullYear();
+                                var m=date.getMonth();
+                                var d=date.getDate();
+                                var h=date.getHours();
+                                var min=date.getMinutes();
+                                var s=date.getSeconds();
+                                var time=y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+                                newCheck(obj,data[i].name,data[i].price,time,data[i].sender,data[i].phone,data[i].type,data[i].address, data[i].beizhu)
+                            }
+
+                            $(".tablebody1 .btn_tij").each(function(index){
+                                $(this).click(function(){
+                                    $.ajax({
+                                        url:"myMsg2",
+                                        data:{
+                                            act:"admin_shu",
+                                            name:msg[index].name,
+                                            price:msg[index].price,
+                                            time:msg[index].time,
+                                            sender:msg[index].sender,
+                                            address:msg[index].address,
+                                            type:msg[index].type,
+                                            phone:msg[index].phone,
+                                            beizhu:msg[index].beizhu
+                                        },
+                                        success:function(data){
+                                           // console.log(msg[index].index)
+                                            $.ajax({
+                                                url:"myMsg2",
+                                                data:{
+                                                    act:"admin_del",
+                                                    id:msg[index].id,
+                                                    c:"checkd"
+                                                },
+                                                success:function(data){
+                                                   getCheck($(".tablebody1"));
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            });
+                            
+                           
+                            
+                        }
+                    });
+                };
+
+                function getUserMsg(c,obj,act){
+                    $.ajax({
+                        url:"myMsg2",
+                        data:{
+                            act:"getUserMsg",
+                            char:c
+                        },
+                        success:function(data){
+                            obj.html("");
+                            var sex="";
+                            for(var i=0; i<data.length;i++){
+                                if(data[i].sex=='0'){
+                                    sex="女";
+                                }
+                                if(data[i].sex=='1'){
+                                    sex="男";
+                                }
+                                newLi(obj,data[i].username,data[i].istitute,sex,data[i].tel,data[i].phone,data[i].email,data[i].isOwn)
+                            }
+                        }
+                    });
+                };
+                function newLi(obj,name,address,sex,tel,phone,email,isOwn){
+
+                    $(obj).append('<div class="row">'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2   levl3">'
+                                +'<span></span><span>'+name+'</span>'
+                                +' </div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+address+'</div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+sex+'</div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+tel+' </div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+phone+' </div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+email+'</div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+isOwn+' </div>'
+                                +'</div>'
+                    )
+                }
+                
+                function newCheck(obj,name,address,sex,tel,phone,email,add,isOwn){
+                    $(obj).append('<div class="row">'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1   levl3">'
+                                +'<span></span><span>'+name+'</span>'
+                                +' </div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+address+'</div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+sex+'</div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+tel+' </div>'
+                                +'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">'+phone+' </div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+email+'</div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+add+' </div>'
+                                +'<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">'+isOwn+' </div>'
+                                +'<div class="col-xs-2">'
+                               +' <button class="btn btn-success btn-xs btn_tij" data-toggle="modal">提交</button>'
+                                +'<button class="btn btn-danger btn-xs" data-toggle="modal" style="margin-left:10px">删除</button>'
+                                +'</div>'
+                                +'</div>'
+                    )
+                }
+                function getMsh(obj){
+                    $.ajax({
+                        url:"myMsg2",
+                        data:{
+                            act:'getWeibo',
+                             c:"info"
+                        },
+                        success:function(data){
+                            obj.html("");
+                            var msg=data;
+                            for(var i=0;i<data.length;i++){
+                                var date=new Date(data[i].time-1+1);
+                                var y=date.getFullYear();
+                                var m=date.getMonth();
+                                var d=date.getDate();
+                                var h=date.getHours();
+                                var min=date.getMinutes();
+                                var s=date.getSeconds();
+                                var time=y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+                                newMsg(obj,data[i].name,data[i].content,time,data[i].acc,data[i].ref)
+                            }
+                            $(".msg_del").each(function(index){
+                                $(this).click(function(){
+                                    $.ajax({
+                                        url:"myMsg2",
+                                        data:{
+                                            act:"admin_del",
+                                            id:msg[index].ID,
+                                            c:"info"
+                                        },
+                                        success:function(data){
+                                            getMsh($(".tablebody2"));
+                                        }
+                                    });
+                                });
+                            });
+                            
+                            
+                        }
+                    });
+                    
+                }
+                function getNews(obj){
+                    $.ajax({
+                        url:"myMsg2",
+                        data:{
+                            act:'getWeibo',
+                            c:"news"
+                        },
+                        success:function(data){
+                            obj.html("");
+                            var msg=data;
+                            for(var i=0;i<data.length;i++){
+                                var date=new Date(data[i].time-1+1);
+                                var y=date.getFullYear();
+                                var m=date.getMonth();
+                                var d=date.getDate();
+                                var h=date.getHours();
+                                var min=date.getMinutes();
+                                var s=date.getSeconds();
+                                var time=y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+                                newMsg(obj,data[i].name,data[i].content,time,data[i].acc,data[i].ref)
+                            }
+                            $(".new_del").each(function(index){
+                                $(this).click(function(){
+                                    $.ajax({
+                                        url:"myMsg2",
+                                        data:{
+                                            act:"admin_del",
+                                            id:msg[index].ID,
+                                            c:"news"
+                                        },
+                                        success:function(data){
+                                            getNews($(".tablebody3"));
+                                        }
+                                    });
+                                });
+                            });
+                            
+                            
+                        }
+                    });
+                    
+                }
+                function newMsg(obj,name,content,time,acc,ref){
+                    $(obj).append('<div class="row" style="height:aoto;line-height:20px;">'
+                           + '<div class="col-xs-1 ">'+name+'</div>'
+                            +'<div class="col-xs-6"> '+content+'</div>'
+                            +'<div class="col-xs-2">'+time+'</div>'
+                            +'<div class="col-xs-1">'+acc+'</div>'
+                            +'<div class="col-xs-1">'+ref+'</div>'
+                            +'<div class="col-xs-1">'
+                            +'<button class="btn btn-danger btn-xs new_del" data-toggle="modal" >删除</button>'
+                            +'</div>'
+                            +'</div>'
+                    )
+                }
+
+                $(".btn_save").click(function(){
+                    if($("#sKnot1").val() == "" || $("#sKnot2").val() == "" || $("#sKnot3").val()==''){
+                        alert("密码有空项");
+                        $("#sKnot1").val("");
+                        $("#sKnot2").val("");
+                        $("#sKnot3").val("");
+                        return false;
+                    }
+                     if( $("#sKnot2").val() != $("#sKnot3").val()){
+                        alert("新密码不同，请查正");
+                        $("#sKnot1").val("");
+                        $("#sKnot2").val("");
+                        $("#sKnot3").val("");
+                        return false;
+                    }
+                    $.ajax({
+                        url:"myMsg2/getPsd",
+                        type:"POST",
+                        data:{
+                            user:sessionStorage.getItem("username"),
+                            psd:$("#sKnot1").val(),
+                            type:"admininstator"
+                        },
+                        success:function(data){
+                           $.ajax({
+                                url:"myMsg2/setPsd",
+                                type:"POST",
+                                data:{
+                                    user:sessionStorage.getItem("username"),
+                                    newPsd:$("#sKnot2").val(),
+                                    type:"admininstator"
+                                },
+                                success:function(data){
+                                   
+                                }
+                            })
+                        }
+                    })
+                })
+
+            })
+        </script>
+        <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+<![endif]-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/slide.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/flat-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
+    </head>
+
+    <body>
+        <div id="wrap">
+            <!-- 左侧菜单栏目块 -->
+            <div class="leftMeun" id="leftMeun">
+                <div id="logoDiv">
+                    <p id="logoP"><span>从产品价格公示平台</span></p>
+                </div>
+                <div id="personInfor">
+                    <p id="userName"></p>
+                    <p>
+                        <a>退出登录</a>
+                    </p>
+                </div>
+                <div class="meun-title">账号管理</div>
+                <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab"><img src="imgs/icon_source.png">用户管理</div>
+                <div class="meun-item" href="#char" aria-controls="char" role="tab" data-toggle="tab"><img src="imgs/icon_chara_grey.png">价格审核</div>
+                <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="imgs/icon_user_grey.png">信息管理</div>
+                <div class="meun-item" href="#news" aria-controls="user" role="tab" data-toggle="tab"><img src="imgs/icon_user_grey.png">新闻管理</div>
+                <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="imgs/icon_change_grey.png">修改密码</div>
+                
+            </div>
+            <!-- 右侧具体内容栏目 -->
+            <div id="rightContent">
+                <a class="toggle-btn" id="nimei">
+                    <i class="glyphicon glyphicon-align-justify"></i>
+                </a>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- 资源管理模块 -->
+                    <div role="tabpanel" class="tab-pane active" id="sour">
+                        <div class="check-div form-inline">
+                            <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">添加资源</button>
+                        </div>
+                        <div class="data-div">
+                            <div class="row tableHeader">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">用户名称</div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">地址</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">性别 </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">电话 </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">手机 </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">E-Mail </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">是否本地 </div>
+                            </div>
+                            <div class="tablebody">
+                                
+
+                                <!-- <div id="collapseSystem" class="collapse in" aria-expanded="true"> -->
+                                    <div class="row">
+                                        <div id="topCD" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 levl2" role="button" data-toggle="collapse" data-parent="#accordion" href="#Present" aria-expanded="true" aria-controls="collapseOne">
+                                            <span id="topC" onClick="changeC()" class="glyphicon glyphicon-triangle-bottom"></span><span> 菜农</span>
+                                        </div>
+                                      
+                                      
+                                    </div>
+                                    <!--地区管理折叠狂-->
+                                    <div id="Present" class="collapse in" aria-expanded="true">
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        <div id="topCD" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 levl2" role="button" data-toggle="collapse" data-parent="#accordion" href="#Business" aria-expanded="true" aria-controls="collapseOne">
+                                            <span id="topC" onClick="changeC()" class="glyphicon glyphicon-triangle-bottom"></span><span> 蔬菜收购商</span>
+                                        </div>
+                                        
+                                      
+                                    </div>
+                                    <!--地区管理折叠狂-->
+                                    <div id="Business" class="collapse in" aria-expanded="true">
+                                       
+                                    </div>
+                                     <div class="row">
+                                        <div id="topCD" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 levl2" role="button" data-toggle="collapse" data-parent="#accordion" href="#Admin" aria-expanded="true" aria-controls="collapseOne">
+                                            <span id="topC" onClick="changeC()" class="glyphicon glyphicon-triangle-bottom"></span><span> 管理员</span>
+                                        </div>
+                                        
+                                      
+                                    </div>
+                                    <!--地区管理折叠狂-->
+                                    <div id="Admin" class="collapse in" aria-expanded="true">
+                                       
+                                    </div>
+                            </div>
+                        </div>
+                    
+                       
+                    </div>
+                    <!-- 权限管理模块 -->
+                    <div role="tabpanel" class="tab-pane" id="char">
+
+                        <div class="check-div">
+                            <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addChar">添加权限</button>
+                        </div>
+                        <div class="data-div">
+                            <div class="row tableHeader">
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">蔬菜名</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">价格</div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-1">时间</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">发布商 </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">手机 </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">类型 </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">E-mail </div>
+                               <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">备注 </div>
+                            </div>
+                            <div class="tablebody tablebody1">
+                             
+                    </div>
+
+
+                </div>
+                <!--页码块-->
+               
+              
+
+            </div>
+            <!--信息管理模块-->
+            <div role="tabpanel" class="tab-pane" id="user">
+                <div class="check-div form-inline">
+                    
+                    
+                </div>
+                <div class="data-div">
+                    <div class="row tableHeader">
+                        <div class="col-xs-1 ">用户名 </div>
+                        <div class="col-xs-6">正文</div>
+                        <div class="col-xs-2">时间</div>
+                        <div class="col-xs-1">点赞</div>
+                        <div class="col-xs-1">差评</div>
+                        <div class="col-xs-1">操作</div>
+                    </div>
+                    <div class="tablebody tablebody2">
+
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--新闻管理模块-->
+            <div role="tabpanel" class="tab-pane" id="news">
+                <div class="check-div form-inline">
+                    
+                    
+                </div>
+                <div class="data-div">
+                    <div class="row tableHeader">
+                        <div class="col-xs-1 ">用户名 </div>
+                        <div class="col-xs-6">正文</div>
+                        <div class="col-xs-2">时间</div>
+                        <div class="col-xs-1">点赞</div>
+                        <div class="col-xs-1">差评</div>
+                        <div class="col-xs-1">操作</div>
+                    </div>
+                    <div class="tablebody tablebody3">
+
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- 修改密码模块 -->
+            <div role="tabpanel" class="tab-pane" id="chan">
+                <div class="check-div">
+                  
+                </div>
+                <div style="padding: 50px 0;margin-top: 50px;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="sKnot" class="col-xs-4 control-label">原密码：</label>
+                            <div class="col-xs-5">
+                                <input type="" class="form-control input-sm duiqi" id="sKnot1" placeholder="" style="margin-top: 7px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sKnot" class="col-xs-4 control-label">新密码：</label>
+                            <div class="col-xs-5">
+                                <input type="password" class="form-control input-sm duiqi" id="sKnot2" placeholder="" style="margin-top: 7px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sKnot" class="col-xs-4 control-label">重复密码：</label>
+                            <div class="col-xs-5">
+                                <input type="password" class="form-control input-sm duiqi" id="sKnot3" placeholder="" style="margin-top: 7px;">
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-xs-offset-4 col-xs-5" style="margin-left: 169px;">
+                                <button type="reset" class="btn btn-xs btn-white">取 消</button>
+                                <button class="btn btn-xs btn-green btn_save">提  交</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>H

@@ -27,6 +27,8 @@ var detailList1= require("./routes/detailList1");
 var aboutUs= require("./routes/aboutUs");
 var all_shu= require("./routes/all_shu");
 var my_shu= require("./routes/my_shu");
+var defaults= require("./routes/defaults");
+var back_login= require("./routes/back_login");
 
 var app = express();
 
@@ -64,6 +66,8 @@ app.use("/detailList1",detailList1);
 app.use("/aboutUs",aboutUs);
 app.use("/all_shu",all_shu);
 app.use("/my_shu",my_shu);
+app.use("/defaults",defaults);
+app.use("/back_login",back_login);
 
 
 // catch 404 and forward to error handler

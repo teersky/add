@@ -12,6 +12,7 @@ router.get('', function(req, res, next) {
 		text: '',
 		psd: ''
 	});
+	res.render('regeit', {});
 });
 router.post('', function(req, res, next) {
 	// 从连接池获取连接 
@@ -63,9 +64,8 @@ router.post('', function(req, res, next) {
 						title: 'tjp',
 						psd: '注册成功'
 				}
-			res.render('regeit', result);
-			console.log("成功")
-			connection.end();
+			res.send(result);
+			connection.release();
 		});
 	});
 });

@@ -113,10 +113,10 @@ router.get('', function(req, res) {
 		var arr=[c2,c3,c4,c5,dat,add,id]
 		console.log(arr)
 		//var sql='INSERT INTO '+type+'("区(县)",手机,电话,邮箱,是否本县) VALUES(?,?,?,?,?)';
-		var sql="update  vegetable set  price=? ,phone=?, type=?, beizhu= ?, time= ? ,address=? where  id=?";
+		var sql="SELECT  *  from "+c+"";
 	
 		pool.getConnection(function(err, connection){
-			connection.query(sql,  arr, function(err, results){
+			connection.query(sql,  function(err, results){
 				console.log(results)
 				res.json(results);
 				connection.release();
@@ -124,6 +124,138 @@ router.get('', function(req, res) {
 			
 		});
 	}
+	if(msg=="getUserMsg"){
+		var c=param.char;
+		console.log(c)
+		//var sql='INSERT INTO '+type+'("区(县)",手机,电话,邮箱,是否本县) VALUES(?,?,?,?,?)';
+		var sql="SELECT * FROM "+c+"";
+	console.log(param)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,  function(err, results){
+				
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+	if(msg=="getCheck"){
+		var c=param.char;
+		console.log(c)
+		//var sql='INSERT INTO '+type+'("区(县)",手机,电话,邮箱,是否本县) VALUES(?,?,?,?,?)';
+		var sql="SELECT * FROM checkd";
+		pool.getConnection(function(err, connection){
+			connection.query(sql,  function(err, results){
+				
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+
+	if(msg=="add_shu"){
+		
+		// 获取前台页面传过来的参数  
+		
+		var param = req.query || req.params;
+		var char=param.c;
+		var name=param.name;
+		var phone=param.phone;
+		var address=param.address;
+		var price=param.price;
+		var type=param.type;
+		var beizhu=param.beizhu;
+		var sender=param.sender;
+		var dat=String(new Date().getTime());
+		
+		if(name==' '){
+			res.send({text:"请输入蔬菜种类"});
+			return false;
+		}
+		if(phone==' '){
+			res.send( {text:"请输入电话号码"});
+			return false;
+		}
+		if(price==' '){
+			res.send( {text:"请输入价格"});
+			return false;
+		}
+		if(address==' '){
+			
+			res.send( {text:"请输入你的地址"});
+			return false;
+		}
+		var msg=[name,price,dat, sender,address,beizhu,phone,type];
+		// 建立连接 增加一个信息 
+		 console.log(msg);
+		pool.getConnection(function(err, connection) {
+			console.log(err)
+			connection.query('INSERT INTO  chekcd (id,name,price,time,sender,address,beizhu,phone,type) VALUES(0,?,?,?,?,?,?,?,?)', msg, function selectCb(err, results) {
+				/*if(err){
+	        		 console.log(err);
+	         		return;
+	        	}  */
+				res.send( {text: "蔬菜信息录入成功..."});
+				connection.release();
+			});
+		});
+	}
+	if(msg=="admin_shu"){
+		var param = req.query || req.params;
+		var mg= param;
+		// 建立连接 增加一个信息 
+		  
+		 var msg=[mg.name,mg.price,mg.time,mg.sender,mg.address,mg.beizhu,mg.phone,mg.type];
+		pool.getConnection(function(err, connection) {
+			
+			connection.query('INSERT INTO  vegetable (id,name,price,time,sender,address,beizhu,phone,type) VALUES(0,?,?,?,?,?,?,?,?)', msg, function selectCb(err, results) {
+				console.log(err)
+				if(err){
+	        		 console.log(err);
+	         		return;
+	        	}  
+				res.send( {text: "蔬菜信息录入成功..."});
+				connection.release();
+			});
+		});
+	}
+	if(msg=="admin_del"){
+		var sql= "delete from  "+param.c+" where id="+param.id+"";
+		console.log(sql)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,   function(err, results){
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+
+	if(msg=="getWeibo"){
+		var sql= "SELECT * from "+param.c+"";
+		console.log(sql)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,   function(err, results){
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+	if(msg=="chk_admin"){
+		var psd=param.password;
+		var sql= "SELECT password from admininstator where username=?";
+		console.log(sql)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,   function(err, results){
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+	
 });
 router.post('/login', function(req, res) {
 	var param = req.body;
@@ -172,7 +304,6 @@ router.post('/getPsd', function(req, res) {
 		//console.log(err);
 		
 		connection.query(sql, user, function(err, results){
-			console.log(results[0].password+"++++");
 			//res.send(results);
 			if(results[0].password==psd){
 				res.send({err:0,txt:"密码匹配"});
@@ -198,7 +329,6 @@ router.post('/setPsd', function(req, res) {
 		psd = (require('crypto').createHash('md5').update(psd).digest('hex'));
 		psd = psd
 	}
-	console.log(psd+"=====")
 	var sql2="update  "+type+" set password=?  where  username=?";
 	pool.getConnection(function(err, connection){
 		connection.query(sql2,  [psd,user], function(err, results){

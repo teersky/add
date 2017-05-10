@@ -6,10 +6,13 @@ var dbConfig = require('../db/DBConfig');
 // 使用DBConfig.js的配置信息创建一个MySQL连接池
 var pool = mysql.createPool(dbConfig.mysql);
 /* GET home page. */
-router.get('', function(req, res, next) {
-	 res.render('add_shu', { });
-	// 从连接池获取连接 
-	
+var page_Size=6;
+var json={};
+var rr=[];
+
+router.get('', function(req, res) {
+
+	res.render("defaults",json);
 });
 
 module.exports = router;

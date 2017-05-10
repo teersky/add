@@ -13,15 +13,20 @@
 			$(function(){
 				$(".submit").click(function(){
 						$.ajax({
-						url:"",
+						url:"myMsg2",
 						data:{
+							act:"add_shu",
+							c:"checkd",
 							name:$(".name").val(),
 							phone:$(".phone").val(),
 							sender:sessionStorage.getItem('username'),
-							address:sessionStorage.getItem('cityname'),
+							address:sessionStorage.getItem('cityName'),
 							type:$("#type").val(),
 							price:$(".price").val(),
 							beizhu:$(".beizhu").val()
+						},
+						success:function(data){
+
 						}
 					});
 						console.log($(".name").val())

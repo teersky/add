@@ -16,16 +16,18 @@
 		<script src="/js/public.js"></script>
 		<script>
 			$(function(){
-				if($(".text2").val()!=$(".text3").val()){
+				/*if($(".text2").val()!=$(".text3").val()){
 					$(".warn").html("两次密码不一致");
 					return false;
 				}else{
 					ck();
-				}
+				}*/
+				ck();
 				function ck(){
 					$(".submit").click(function(){
 						var address =sessionStorage.getItem('cityName');
 						var username = $(".text1").val();
+						console.log(username);
 						var sex=$('input:radio:checked').val();
 						var psd1= $(".text2").val();
 						var psd2= $(".text3").val();
@@ -41,6 +43,9 @@
 								psd1:psd1,
 								psd2:psd2,
 								work:work
+							},
+							success:function(data){
+								location.href="login"
 							}
 						})
 					});

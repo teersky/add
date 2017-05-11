@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>灾情</title>
+		<link rel="stylesheet" href="stylesheets/public.css" />
+		<link rel="stylesheet" href="stylesheets/disaster.css" />
+		<script src="js/public.js"></script>
+		<script src='js/jquery.min.js'></script>
+		<script>
+		$(function(){
+			var nameUrl=(decodeURI(window.location.href));
+			var id=nameUrl.split("=")[1];
+			$.ajax({
+				url:"myMsg2",
+				data:{
+					act:"newsMsg",
+					id:id
+				},
+				success:function(data){
+					var txtBox=[];
+					var date=new Date(data.time-1+1);
+                    var y=date.getFullYear();
+                    var m=date.getMonth();
+                    var d=date.getDate();
+                    var h=date.getHours();
+                    var min=date.getMinutes();
+                    var s=date.getSeconds();
+                    var time=y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+					$(".cityName_title").html(data.tit);
+					$(".t1").html(time);
+					$(".t2").html(data.name);
+					//txtBox.push(data.txt.split("&"));
+					txtBox=data.txt.split("&");
+					for(var i=0;i<txtBox.length;i++){
+						$(".contentBox_text").append('<span class="txt" style="text-indent:2em;margin:0.5rem 0">'+txtBox[i]+'</span>');
+					}
+
+				}
+			});
+		})
+		</script>
+	</head>
+	<body>
+		<header>
+			<!--<a href="disasterList.html"><span class="return"><返回</span></a>-->
+			<span class="title">新闻</span>
+		</header>
+		<div class="box">
+			<div class="cityName">
+				<span class="cityName_title"></span>
+				
+			</div>
+			<div class="content">
+				<div class="contentBox">
+					<div>
+						<span class="contentBox_title" style="display: inline-block;">时间:</span>
+						<span class="contentBox_time t1" style="display: inline-block;"></span>
+					</div>
+					<div>
+						<span class="contentBox_title" style="display: inline-block;">作者:</span>
+						<span class="contentBox_time t2" style="display: inline-block;"></span>
+					</div>
+					<span class="contentBox_text" style="border-top: 0.04rem solid #999">
+						<!--<span class="txt">
+							XSR700是基于FZ-07平台打造，这款复古车型延续了早些年的经典电影《Faster Sons》中XS650车型的设计风格。虽然造型复古，但XSR700比XS650拥有更多的科技装备，包括来自FZ-07的689cc双杠发动机。
+						</span>
+						 <span class="txt">
+							作为一款复古车型，XSR700在很多细节方面对于后期改装都提供了很大的便利性，比如独立的前大灯非常方面拆装和更换，尾部的副车架也非常方便拆装以便于改装单座结构，对于改装玩家来说，雅马哈真的是太懂他们的想法了。此外，油箱、挡泥板、脚踏板等部件都采用了铝制材料已减轻重量，整车重量为184kg。
+						</span>
+						 -->
+					</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

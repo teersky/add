@@ -47,6 +47,7 @@ exports.acc=function(pool,sql,res){
 			if(err){
 				throw err;
 			}
+			console.log(result);
 			res.send(result);
 			connection.release()
 		});

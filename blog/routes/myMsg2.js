@@ -132,7 +132,7 @@ router.get('', function(req, res) {
 	console.log(param)
 		pool.getConnection(function(err, connection){
 			connection.query(sql,  function(err, results){
-				
+				console.log(results)
 				res.json(results);
 				connection.release();
 			});
@@ -255,6 +255,77 @@ router.get('', function(req, res) {
 			
 		});
 	}
+	if(msg=="addNews"){
+		var tit=param.tit;
+		var txt=param.txt;
+		var name=param.user;
+		var time=new Date().getTime();
+		var sql= "INSERT into news(id,tit,txt,time,name,acc,ref) VALUES (0,?,?,?,?,0,0)";
+		var arr=[tit,txt,time,name]; 
+		console.log(sql)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,  arr,  function(err, results){
+				console.log(err);
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+	if(msg=="newsMsg"){
+		var sql= "SELECT * from news where ID="+param.id+"";
+		pool.getConnection(function(err, connection){
+			connection.query(sql,  arr,  function(err, results){
+				
+				res.json(results[0]);
+				connection.release();
+			});
+			
+		});
+	}
+	if(msg=="acc_update"){
+		var updatemsg1='update news set acc='+param.acc_num+' where ID='+param.id+' ';
+		var updatemsg2={acc:param.old_num};
+		var get = require('./get.js'); 
+		get.acc_update(pool,updatemsg1,updatemsg2,res);
+	}
+	if(msg=="ref"){
+		console.log('asd');
+		var sql= "SELECT ref from news where ID="+param.id+"";
+		var get = require('./get.js'); 
+		get.ref(pool,sql,res);
+	
+	}
+	if(msg=="ref_update"){
+		var updatemsg1='update news set ref='+param.acc_num+' where ID='+param.id+' ';
+		var updatemsg2={ref:param.old_num};
+		var get = require('./get.js'); 
+		get.ref_update(pool,updatemsg1,updatemsg1,res);
+	}
+	if(msg=="oldPrice"){	
+		var t=param.t-1+1;
+		var type=param.tp;
+		var date = new Date(),
+		year = date.getFullYear(),
+		month = date.getMonth() + 1,
+		date = date.getDate();
+		
+		var stringTime = year+"-"+month+"-"+date+" 0:0:0";
+		var timestamp2 = Date.parse(new Date(stringTime));
+		console.log(timestamp2-24*60*60*1000*3);
+		//var sql= "SELECT * from vegetable where name=?";
+		var sql="select * from  vegetable where time > "+(timestamp2-24*60*60*1000*t)+" and time < "+timestamp2+" and name=?"; 
+		console.log(sql)
+		pool.getConnection(function(err, connection){
+			connection.query(sql,  param.tp, function(err, results){
+				console.log(results);
+				res.json(results);
+				connection.release();
+			});
+			
+		});
+	}
+
 	
 });
 router.post('/login', function(req, res) {

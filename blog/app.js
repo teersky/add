@@ -29,6 +29,9 @@ var all_shu= require("./routes/all_shu");
 var my_shu= require("./routes/my_shu");
 var defaults= require("./routes/defaults");
 var back_login= require("./routes/back_login");
+var news= require("./routes/news");
+var newsMsg= require("./routes/newsMsg");
+var oldPrice= require("./routes/oldPrice");
 
 var app = express();
 
@@ -68,6 +71,9 @@ app.use("/all_shu",all_shu);
 app.use("/my_shu",my_shu);
 app.use("/defaults",defaults);
 app.use("/back_login",back_login);
+app.use("/news",news);
+app.use("/newsMsg",newsMsg);
+app.use("/oldPrice",oldPrice);
 
 
 // catch 404 and forward to error handler

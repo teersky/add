@@ -1,0 +1,93 @@
+.box{
+	width:16rem;
+	padding:0.8rem;
+}
+
+button{
+	width: 90%;
+	height:1.6rem;
+	font-size: 1rem;
+	background: -webkit-linear-gradient(#217398, #1143ad); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#217398, #1143ad); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#217398, #1143ad); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#217398, #1143ad); /* 标准的语法 */
+    color:#f1f2f3;
+    border-radius: 0.5rem;
+    outline: none;
+}
+
+#charts{
+	width: 90%;
+	height:16rem;
+	border:1px solid #aaa;
+	margin-top: 1rem;
+	background: #f1f2f3;
+}
+.popup{
+	width: 80%;
+	margin: 0 auto;
+	height:10rem;
+	position:fixed;
+	top:5rem;
+	left:10%;
+	background: #fff;
+	border:0.03rem solid #aaa;
+	border-radius: 0.6rem;
+	z-index: 100;
+	display: none;
+}
+.shad{
+	width: 100%;
+	height:32rem;
+	position: fixed;
+	top:0;
+	left:0;
+	background: rgba(0,0,0,0.6);
+	display: none;
+}
+.popup .inp{
+	width: 90%;
+	display: block;
+	margin:1rem 5%;
+	height:1.4rem;
+	border:0.03rem solid #aaa;
+	font-size: 1.2rem
+	line-height:1.4rem;
+	color:#000;
+	text-indent:1rem;
+	outline: none;
+}
+
+.popup ul{
+	width: 90%;
+	height:2rem;
+	display: flex;
+	margin-left: 5%;
+}
+
+.popup ul li{
+	flex:1;
+	background: #999;
+	border-radius: 0.5rem;
+	margin: 0 0.2rem;
+	color:#fff;
+	line-height: 2rem;
+	text-align: center;
+}
+.popup ul li.ali_active{
+	background: #32a1db;
+}
+.popup .btn{
+	width: 90%;
+	height: 1.6rem;
+	background: #32a1db;
+	color:#fff;
+	line-height: 1.6rem;
+	text-align: center;
+	display: block;
+	margin-left: 5%;
+	margin-top: 2rem;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	outline: none;
+}

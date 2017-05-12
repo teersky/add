@@ -335,6 +335,10 @@
                         }
                     })
                 })
+                $(".return").click(function(){
+                    sessionStorage.removeItem('username');
+                    location.href="back_login";
+                });
 
             })
         </script>
@@ -360,7 +364,7 @@
                 <div id="personInfor">
                     <p id="userName"></p>
                     <p>
-                        <a>退出登录</a>
+                        <a class="return">退出登录</a>
                     </p>
                 </div>
                 <div class="meun-title">账号管理</div>

@@ -67,7 +67,7 @@ router.get('', function(req, res) {
 		var arr=[c1,c2,c3,c4,c5,user]
 		
 		//var sql='INSERT INTO '+type+'("区(县)",手机,电话,邮箱,是否本县) VALUES(?,?,?,?,?)';
-		var sql="update  "+type+" set county=?,phone=? ,tel=?, email=?, isOur= ?  where  username=?";
+		var sql="update  "+type+" set county=?,phone=? ,tel=?, email=?, isOwn= ?  where  username=?";
 		console.log(sql)
 		pool.getConnection(function(err, connection){
 			connection.query(sql,  arr, function(err, results){
@@ -107,16 +107,17 @@ router.get('', function(req, res) {
 		var c4=param.c4;
 		var c5=param.c5;
 		var id=param.id;
-		//var add=param.address;
-		var add="兰州市安宁区"
+		var add=param.address || "兰州市安宁区";
+		//var add="兰州市安宁区"
 		var dat=String(new Date().getTime());
 		var arr=[c2,c3,c4,c5,dat,add,id]
 		console.log(arr)
+		var sql='update vegetable set price=?,phone=?,type=?,beizhu=? ,time=? ,address=? where ID='+param.id+' '
 		//var sql='INSERT INTO '+type+'("区(县)",手机,电话,邮箱,是否本县) VALUES(?,?,?,?,?)';
-		var sql="SELECT  *  from "+c+"";
+		//var sql="SELECT  *  from "+c+"";
 	
 		pool.getConnection(function(err, connection){
-			connection.query(sql,  function(err, results){
+			connection.query(sql, arr, function(err, results){
 				console.log(results)
 				res.json(results);
 				connection.release();
@@ -156,8 +157,6 @@ router.get('', function(req, res) {
 
 	if(msg=="add_shu"){
 		
-		// 获取前台页面传过来的参数  
-		
 		var param = req.query || req.params;
 		var char=param.c;
 		var name=param.name;
@@ -191,7 +190,7 @@ router.get('', function(req, res) {
 		 console.log(msg);
 		pool.getConnection(function(err, connection) {
 			console.log(err)
-			connection.query('INSERT INTO  chekcd (id,name,price,time,sender,address,beizhu,phone,type) VALUES(0,?,?,?,?,?,?,?,?)', msg, function selectCb(err, results) {
+			connection.query('INSERT INTO  checkd (id,name,price,time,sender,address,beizhu,phone,type) VALUES(0,?,?,?,?,?,?,?,?)', msg, function selectCb(err, results) {
 				/*if(err){
 	        		 console.log(err);
 	         		return;
@@ -305,16 +304,8 @@ router.get('', function(req, res) {
 	if(msg=="oldPrice"){	
 		var t=param.t-1+1;
 		var type=param.tp;
-		var date = new Date(),
-		year = date.getFullYear(),
-		month = date.getMonth() + 1,
-		date = date.getDate();
-		
-		var stringTime = year+"-"+month+"-"+date+" 0:0:0";
-		var timestamp2 = Date.parse(new Date(stringTime));
-		console.log(timestamp2-24*60*60*1000*3);
-		//var sql= "SELECT * from vegetable where name=?";
-		var sql="select * from  vegetable where time > "+(timestamp2-24*60*60*1000*t)+" and time < "+timestamp2+" and name=?"; 
+		var timestamp=param.timestamp;
+		var sql="select * from  vegetable where time > "+(timestamp-24*60*60*1000*t)+" and time < "+timestamp+" and name=?"; 
 		console.log(sql)
 		pool.getConnection(function(err, connection){
 			connection.query(sql,  param.tp, function(err, results){

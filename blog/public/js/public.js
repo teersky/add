@@ -12,11 +12,12 @@
 	doc.addEventListener('DOMContentLoaded', recalc, false)
 })(document, window);
 function charts(obj,y,m,d,second,datas) {
+	console.log(obj,y,m,d,second,datas);
 	$(function() {
 		$(obj).highcharts({
 			chart: {
 				type: 'spline',
-				backgroundColor: 'rgba(0,0,0,0)'
+				/*backgroundColor: 'rgba(0,0,0,0)'*/
 			},
 			xAxis: {
 				type: 'datetime',

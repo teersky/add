@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>DormMag</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+    <servlet>
+	<servlet-name>upload</servlet-name>
+	<servlet-class>com.zhd.servlet.Upload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>upload</servlet-name>
+	<url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>studentFile</servlet-name>
+	<servlet-class>com.zhd.servlet.studentFile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>studentFile</servlet-name>
+	<url-pattern>/studentFile</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>test1</servlet-name>
+	<servlet-class>com.zhd.servlet.test1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>test1</servlet-name>
+	<url-pattern>/test1</url-pattern>
+  </servlet-mapping>
+   <servlet>
+	<servlet-name>person</servlet-name>
+	<servlet-class>com.zhd.servlet.person</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>person</servlet-name>
+	<url-pattern>/person</url-pattern>
+  </servlet-mapping>
+   <servlet>
+	<servlet-name>dormAllocation</servlet-name>
+	<servlet-class>com.zhd.servlet.dormAllocation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>dormAllocation</servlet-name>
+	<url-pattern>/dormAllocation</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+

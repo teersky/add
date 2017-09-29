@@ -7,13 +7,19 @@ $(function(){
 		},
 		success: function(response){
 			var data = tools.StrToJson(response);
-			console.log(data);
 			var vm = new Vue({
 				el:"table",
 				data:{
 					msg: data
+				},
+				methods:{
+					"lengthTest":function(index){
+						console.log(index);
+					}
 				}
 			});
+			
+			
 		}
 	});
 });

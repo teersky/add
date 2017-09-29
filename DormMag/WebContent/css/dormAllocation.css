@@ -49,3 +49,6 @@ body{
 #table tbody tr td:nth-child(5) a:hover{
 	color: #a00;
 }
+#table tbody tr td:nth-child(5) span{
+	color: #aaa;
+}

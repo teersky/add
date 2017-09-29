@@ -49,11 +49,10 @@ public class dormAllocation extends HttpServlet{
 					String name = "";
 					Map<String, String> map = new HashMap<String, String>();
 					int columnCount=data.getColumnCount();
-					for(int i = 1; i <= columnCount; i++){
+					for(int i = 2; i <= columnCount; i++){
 						 map.put(data.getColumnName(i), rs.getString(i));
 						 list.add(rs.getString(i));
 				 	}
-					//System.out.println(list.get(3));
 					if(list.get(3) != null && !list.get(3).isEmpty()){
 						String []stuNum = list.get(3).split("&");
 						int count=0;

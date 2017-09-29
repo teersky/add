@@ -12,7 +12,7 @@
 <body>
 	<div id="box">
 			<div class="contenttitle2">
-				<h3>老员工信息表</h3>
+				<h3>学生信息表</h3>
 			</div>
 			<!--contenttitle-->
 			<table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable">

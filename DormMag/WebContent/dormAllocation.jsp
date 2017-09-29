@@ -24,9 +24,12 @@
 				<td>{{ m[1]==0? "女":"男" }}生宿舍</td>
 				<td>{{ m[2]==null? '':m[2]+"级" }}</td>
 				<td>
-					 <a  v-for="i in m[4].slice(0,m[4].length-1).split('&')" v-bind:href="m[3]==null?'':'?'+m[3].split('&')[$index]">{{ i }}</a>
+					 <a  v-for="i in m[4].slice(0,m[4].length-1).split('&')" v-bind:index="m[3]==null?'':m[3].split('&')[$index]" href="javascript:;" >{{ i }}</a>
 				</td>
-				<td><a v-bind:href="'?'+m[0]">添加</a></td> 
+				<td>
+					<a v-bind:href="'?'+m[0]" v-if="m[4].slice(0,m[4].length-1).split('&').length <5">添加</a>
+					<span v-if="m[4].slice(0,m[4].length-1).split('&').length >=5">添加</span>
+				</td> 
 			</tr>
 		</tbody>	
 	</table>	

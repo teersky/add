@@ -29,12 +29,12 @@ import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 import com.zhd.conn.connection;
 
-public class Upload extends HttpServlet{
+public class UploadBackups extends HttpServlet{
 	private static final long serialVersionUID1 = 1L;
 	private static Connection conn;
 	private static PreparedStatement pstmt;
 	
-	public Upload() {
+	public UploadBackups() {
 		conn =new connection().getConn();
 	}
 	@Override
@@ -126,22 +126,13 @@ public class Upload extends HttpServlet{
 						    String table=String.valueOf(a.get(Calendar.YEAR));
 						    ResultSet rs = conn.getMetaData().getTables(null, null, table+"year", null); 
 						    Boolean beReady=rs.next();
+						    System.out.println(list1.size()%6);
 						    if(beReady) { 
-						    	int  count_B=0, count_G=0,js_B=0, js_G=0;
-						    	int index_B = insertDormId("ÄÐ"), index_G = insertDormId("Å®");
+						    	int index = 0, count=0;
 						    	String dormNum="";
 						    	String oneDorm="", dormArr="";
 						    	String numArr="";
 						    	String memArr_B="", memArr_G="";
-						    	for(int r=0; r<list1.size();r++){
-						    		List csList=new ArrayList();
-						    		csList=(List) list1.get(r);
-						    		if(csList.get(2).equals("ÄÐ")){
-						    			js_B++;
-						    		}else{
-						    			js_G++;
-						    		}
-						    	}
 						    	for(int r=0; r<list1.size();r++){
 						    		List xxList=new ArrayList();
 						    		xxList=(List) list1.get(r);
@@ -158,54 +149,47 @@ public class Upload extends HttpServlet{
 						    		numArr = numArr + xxList.get(0)+"&";
 						    		
 						    		if(xxList.get(2).equals("ÄÐ")){
-						    			dormNum = sexSet(count_B, index_B);
-						    			if(memArr_B.length()<1){
-						    				memArr_B=oneDorm;
-						    			}else{
-						    				memArr_B=memArr_B+"&"+oneDorm;
-						    			}
-						    			oneDorm="";
-						    			if(count_B/6 < js_B/6){
-						    				if(memArr_B.split("&").length==6){
-						    					inertDormNum(memArr_B, table, dormNum, "1");
-						    				}
-						    			}else{
-						    				if(memArr_B.split("&").length==js_B%6){
-						    					inertDormNum(memArr_B, table, dormNum, "1");
-						    				}
-						    			}
-						    			count_B++;
-						    			if(count_B%6==0){
-						    				index_B++;
-						    				memArr_B = "";
-						    			}
+						    			memArr_B = memArr_B + xxList.get(0)+"&";
 						    		}else{
-						    			dormNum = sexSet(count_G, index_G);
-						    			if(memArr_G.length()<1){
-						    				memArr_G=oneDorm;
-						    			}else{
-						    				memArr_G=memArr_G+"&"+oneDorm;
-						    			}
-						    			oneDorm="";
-						    			System.out.println(memArr_G);
-						    			if(count_G/6 < js_G/6){
-						    				if(memArr_G.split("&").length==6){
-						    					inertDormNum(memArr_G, table, dormNum, "0");
-						    				}
-						    			}else{
-						    				
-						    				if(memArr_G.split("&").length==js_G%6){
-						    					inertDormNum(memArr_G, table, dormNum, "0");
-						    				}
-						    			}
-						    			count_G++;
-						    			if(count_G%6==0){
-						    				index_G++;
-						    				memArr_G = "";
-						    			}
+						    			memArr_G = memArr_G + xxList.get(0)+"&";
+						    		}
+						    		if(r==0){
+						    			dormArr=oneDorm;
+						    		}else{
+						    			dormArr=dormArr+"&"+oneDorm;
 						    		}
 						    		
+					    			if(count%6==0){
+						    			index++;
+						    			String sql2="select dormNum from dormallocation where id="+index+"";
+						    			pstmt=conn.prepareStatement(sql2);
+						    			ResultSet rs2=pstmt.executeQuery();
+						    			while(rs2.next()){
+						    				dormNum = rs2.getString(1);
+										}
+						    		}
+					    			if(count/6 < list1.size()/6){
+						    			if(memArr_B.substring(0, memArr_B.length()-1).split("&").length==6){
+						    				inertDormNum(memArr_B.substring(0, memArr_B.length()-1), table, dormNum, "1");
+						    			}
+						    			if(memArr_G.substring(0, memArr_G.length()-1).split("&").length==6){
+						    				inertDormNum(memArr_G.substring(0, memArr_G.length()-1), table, dormNum, "0");
+						    			}
+					    			}else{
+					    				if(memArr_B.substring(0, memArr_B.length()-1).split("&").length==list1.size()%6){
+					    					inertDormNum(memArr_B.substring(0, memArr_B.length()-1), table, dormNum, "1");
+					    				}
+					    				if(memArr_G.substring(0, memArr_G.length()-1).split("&").length==list1.size()%6){
+					    					inertDormNum(memArr_G.substring(0, memArr_G.length()-1), table, dormNum, "0");
+					    				}
+					    			}
+					    			count++;
+					    			if(count%6==0){
+						    			numArr = "";
+					    			}
+					    			
 					    			lt=lt+",'"+dormNum+"'";
+					    			
 					    			String sql1="select * from "+table+"year where stuNum="+xxList.get(0)+"";
 					    			pstmt=conn.prepareStatement(sql1);
 					    			ResultSet rs1=pstmt.executeQuery();
@@ -216,29 +200,19 @@ public class Upload extends HttpServlet{
 						    			pstmt=conn.prepareStatement(insert);
 						    			pstmt.executeUpdate();
 						    		}
-						    		//System.out.println(dormArr);
+						    		System.out.println(dormArr);
 						    		xxList=null;
 						    	}
 						    	
 						    } else {  
 						    	Statement stmt = conn.createStatement();
 						    	String sql = "CREATE TABLE `"+table+"year`( `stuNum` VARCHAR(20) PRIMARY KEY NOT NULL, `name` VARCHAR(30) NOT NULL, `sex` VARCHAR(4) NOT NULL,`nation` VARCHAR(20) NOT NULL, `brithday` VARCHAR(20) NOT NULL, `IDCard` VARCHAR(30) NOT NULL, `collage` VARCHAR(30) NOT NULL, `major` VARCHAR(30) NOT NULL, `class` VARCHAR(20) NOT NULL, `address` VARCHAR(30) NOT NULL,`phone` VARCHAR(30) NOT NULL,`QQNum` VARCHAR(30) NOT NULL,`remarks` VARCHAR(200), `dormNum` VARCHAR(30))";
-						    	stmt.execute(sql);
-						    	int  count_B=0, count_G=0,js_B=0, js_G=0;
-						    	int index_B = insertDormId("ÄÐ"), index_G = insertDormId("Å®");
-						    	String dormNum="";
+						    	int index = 0, count=0;
+						    	String dormNum="",remarks="";
 						    	String oneDorm="", dormArr="";
+						    	stmt.execute(sql);
+
 						    	String numArr="";
-						    	String memArr_B="", memArr_G="";
-						    	for(int r=0; r<list1.size();r++){
-						    		List csList=new ArrayList();
-						    		csList=(List) list1.get(r);
-						    		if(csList.get(2).equals("ÄÐ")){
-						    			js_B++;
-						    		}else{
-						    			js_G++;
-						    		}
-						    	}
 						    	for(int r=0; r<list1.size();r++){
 						    		List xxList=new ArrayList();
 						    		xxList=(List) list1.get(r);
@@ -249,57 +223,30 @@ public class Upload extends HttpServlet{
 						    				oneDorm=(String) xxList.get(0);
 						    				break;
 						    			}
-						    			
 						    			lt=lt+"'"+xxList.get(p)+"',";
 						    		}
 						    		numArr = numArr + xxList.get(0)+"&";
 						    		
-						    		if(xxList.get(2).equals("ÄÐ")){
-						    			dormNum = sexSet(count_B, index_B);
-						    			if(memArr_B.length()<1){
-						    				memArr_B=oneDorm;
-						    			}else{
-						    				memArr_B=memArr_B+"&"+oneDorm;
-						    			}
-						    			oneDorm="";
-						    			if(count_B/6 < js_B/6){
-						    				if(memArr_B.split("&").length==6){
-						    					inertDormNum(memArr_B, table, dormNum, "1");
-						    				}
-						    			}else{
-						    				if(memArr_B.split("&").length==js_B%6){
-						    					inertDormNum(memArr_B, table, dormNum, "1");
-						    				}
-						    			}
-						    			count_B++;
-						    			if(count_B%6==0){
-						    				index_B++;
-						    				memArr_B = "";
-						    			}
+						    		if(r==0){
+						    			dormArr=oneDorm;
 						    		}else{
-						    			dormNum = sexSet(count_G, index_G);
-						    			if(memArr_G.length()<1){
-						    				memArr_G=oneDorm;
-						    			}else{
-						    				memArr_G=memArr_G+"&"+oneDorm;
-						    			}
-						    			oneDorm="";
-						    			if(count_G/6 < js_G/6){
-						    				if(memArr_G.split("&").length==6){
-						    					inertDormNum(memArr_G, table, dormNum, "0");
-						    				}
-						    			}else{
-						    				
-						    				if(memArr_G.split("&").length==js_G%6){
-						    					inertDormNum(memArr_G, table, dormNum, "0");
-						    				}
-						    			}
-						    			count_G++;
-						    			if(count_G%6==0){
-						    				index_G++;
-						    				memArr_G = "";
-						    			}
+						    			dormArr=dormArr+"&"+oneDorm;
 						    		}
+						    		
+						    		if(count%6==0){
+						    			index++;
+						    			String sql2="select dormNum from dormallocation where id="+index+"";
+						    			pstmt=conn.prepareStatement(sql2);
+						    			ResultSet rs2=pstmt.executeQuery();
+						    			while(rs2.next()){
+						    				dormNum = rs2.getString(1);
+										}
+						    		}
+					    			count++;
+					    			if(count%6==0){
+					    				System.out.println(numArr);
+						    			numArr = "";
+					    			}
 					    			lt=lt+",'"+dormNum+"'";
 					    			String  insert="insert into "+table+"year (stuNum, name, sex, nation, brithday, IDCard, collage, major, class, address, phone, QQNum, remarks, dormNum) VALUE("+lt+")";
 					    			pstmt=conn.prepareStatement(insert);
@@ -307,6 +254,7 @@ public class Upload extends HttpServlet{
 					    			
 					    			xxList=null;
 						    	}
+						    	System.out.println(dormArr);
 						    }
 						
 						} catch (Exception e) {
@@ -328,8 +276,8 @@ public class Upload extends HttpServlet{
 	}
 	
 	public void inertDormNum(String str,String year, String dormNum, String sex){
+		System.out.println(str);
 		String  insertMember="UPDATE dormallocation SET grade = '"+year+"',member = '"+str+"' WHERE dormNum = '"+dormNum+"' and sex = '"+sex+"'";
-		//System.out.println(str+"--"+year+"---"+dormNum+"---"+sex);
 		try {
 			pstmt=conn.prepareStatement(insertMember);
 			pstmt.executeUpdate();
@@ -337,44 +285,5 @@ public class Upload extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	public int insertDormId(String sex){
-		if(sex.equals("ÄÐ")){
-			sex= "1";
-		}else{
-			sex= "0";
-		}
-		String insertId = "SELECT id FROM dormallocation WHERE sex = "+sex+" LIMIT 0,1 ;";
-		int id=0;
-		try {
-			pstmt=conn.prepareStatement(insertId);
-			ResultSet rs2=pstmt.executeQuery();
-			while(rs2.next()){
-				id =  Integer.parseInt(rs2.getString(1));
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
-	}
-	
-	public String sexSet(int count_B, int index_B){
-		String dormNum="";
-		String sql2="select dormNum from dormallocation where id="+index_B+"";
-		try {
-			pstmt=conn.prepareStatement(sql2);
-			ResultSet rs2=pstmt.executeQuery();
-			while(rs2.next()){
-				dormNum = rs2.getString(1);
-				//System.out.println(dormNum+"---dormum");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		index_B++;
-		return dormNum;
 	}
 }
